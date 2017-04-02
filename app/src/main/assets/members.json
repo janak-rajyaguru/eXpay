@@ -1,0 +1,24 @@
+{
+  "members":[
+    {
+      "name": "",
+      "VPA" : "",
+      "isTitle": "true"
+    },
+    {
+      "name": "Nitesh",
+      "VPA" : "nitesh@axisbank.com",
+      "isTitle": "false"
+    },
+    {
+      "name": "Hiren",
+      "VPA" : "nitesh@axisbank.com",
+      "isTitle": "false"
+    },
+    {
+      "name": "Janak",
+      "VPA": "nitesh@axisbank.com",
+      "isTitle": "false"
+    }
+  ]
+}
