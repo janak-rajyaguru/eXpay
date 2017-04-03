@@ -1,4 +1,4 @@
-package com.iciciappathon.expay;
+package com.iciciappathon.expay.POJOBeans;
 
 /**
  * Created by HP on 03-04-2017.

@@ -1,4 +1,4 @@
-package com.iciciappathon.expay;
+package com.iciciappathon.expay.Activities;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.iciciappathon.expay.Adapters.GroupMemberListAdapter;
+import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.POJOBeans.Contact;
+import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
+import com.iciciappathon.expay.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

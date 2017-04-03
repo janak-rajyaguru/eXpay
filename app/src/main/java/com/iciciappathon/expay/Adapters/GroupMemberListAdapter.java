@@ -1,4 +1,4 @@
-package com.iciciappathon.expay;
+package com.iciciappathon.expay.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
+import com.iciciappathon.expay.R;
+
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by HP on 02-04-2017.

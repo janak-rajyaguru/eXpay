@@ -1,4 +1,4 @@
-package com.iciciappathon.expay;
+package com.iciciappathon.expay.POJOBeans;
 
 import org.json.JSONObject;
 
