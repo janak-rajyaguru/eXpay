@@ -1,5 +1,7 @@
 package com.iciciappathon.expay;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -20,6 +22,9 @@ public class CreateGroupActivity extends AppCompatActivity {
     private GroupMemberListAdapter groupMemberListAdapter;
     private ArrayList<GroupMemberListItem> listItemArrayList = new ArrayList<>();
     private GroupMemberListItem listItem = null;
+    DatabaseHandler databaseHandler;
+    public SQLiteDatabase sqLiteDatabase;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +32,13 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
 
         initComponents();
-        try {
+       /* try {
             getData();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
+        setTempData();
+        setDataToList();
         groupMemberListAdapter = new GroupMemberListAdapter(CreateGroupActivity.this, listItemArrayList);
         listViewMembers.setAdapter(groupMemberListAdapter);
     }
@@ -39,6 +46,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void initComponents() {
         etGroupName = (EditText) findViewById(R.id.etGroupName);
         listViewMembers = (ListView) findViewById(R.id.listView);
+        databaseHandler = new DatabaseHandler(this);
     }
 
     public String loadJSONFromAsset() {
@@ -63,9 +71,41 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         if(null != members){
             for (int i = 0; i < members.length(); i++) {
-                    listItem = new GroupMemberListItem(members.getJSONObject(i));
+                 //   listItem = new GroupMemberListItem(members.getJSONObject(i));
                     listItemArrayList.add(listItem);
             }
+        }
+    }
+
+    private void setTempData(){
+        databaseHandler.addContact(new Contact("", ""));
+        databaseHandler.addContact(new Contact("Nitesh", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Hiren", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Janak", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Kavita", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Nitesh", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Hiren", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Janak", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Kavita", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Nitesh", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Hiren", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Janak", "nitesh@axisbank.com"));
+        databaseHandler.addContact(new Contact("Kavita", "nitesh@axisbank.com"));
+    }
+
+    public void setDataToList(){
+        sqLiteDatabase = databaseHandler.getWritableDatabase();
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM eXpayMembers", null);
+
+        listItemArrayList.clear();
+
+        if (cursor.moveToFirst()) {
+            do {
+                listItem = new GroupMemberListItem(cursor.getString(cursor.getColumnIndex(databaseHandler.getName())),
+                                     cursor.getString(cursor.getColumnIndex(databaseHandler.getVPA())) );
+                listItemArrayList.add(listItem);
+
+            } while (cursor.moveToNext());
         }
     }
 }

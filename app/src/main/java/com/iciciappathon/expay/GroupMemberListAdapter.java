@@ -58,7 +58,7 @@ public class GroupMemberListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         listItem = listItemArrayList.get(i);
-        if(listItem.isTitle()){
+        if(listItem.getName().equals("") && listItem.getVPA_Id().equals("")){
             viewHolder.txtName.setText("Add member to Group");
             viewHolder.txtVpa.setVisibility(View.GONE);
         } else {

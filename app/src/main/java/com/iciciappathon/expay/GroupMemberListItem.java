@@ -12,12 +12,19 @@ public class GroupMemberListItem {
 
     boolean isTitle = false;
 
+    public GroupMemberListItem(String name, String VPA_Id) {
+        this.name = name;
+        this.VPA_Id = VPA_Id;
+    }
 
-    public GroupMemberListItem(JSONObject jsonObject) {
+
+ /*   public GroupMemberListItem(JSONObject jsonObject) {
         setName(jsonObject.optString("name"));
         setVPA_Id(jsonObject.optString("VPA"));
         setTitle(jsonObject.optBoolean("isTitle"));
-    }
+    }*/
+
+
 
     public String getName() {
         return name;
