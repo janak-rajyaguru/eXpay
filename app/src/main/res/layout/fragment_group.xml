@@ -3,10 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.iciciappathon.expay.Fragments.GroupFragment">
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Groups" />
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_grouplistView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_create_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Group+"
+            style="@style/Base.Widget.Design.TabLayout"
+            />
+    </RelativeLayout>
 </FrameLayout>
