@@ -10,9 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iciciappathon.expay.Activities.CreateGroupActivity;
+import com.iciciappathon.expay.Activities.GroupDetailsActivity;
 import com.iciciappathon.expay.Adapters.GroupsAdapter;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.R;
@@ -37,7 +39,7 @@ public class GroupFragment extends Fragment{
         mParentView = inflater.inflate(R.layout.fragment_group, container, false);
         mContext = getActivity().getApplicationContext();
         initializeUiElements(mParentView);
-
+        setClickListeners();
         setDataToGroups();
         mGroupsAdapter = new GroupsAdapter(mContext,mGroupItemsArrayList);
         mGroupListView.setAdapter(mGroupsAdapter);
@@ -52,6 +54,16 @@ public class GroupFragment extends Fragment{
         });
 
         return mParentView;
+    }
+
+    private void setClickListeners() {
+        mGroupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent createGroupIntent = new Intent(getActivity(), GroupDetailsActivity.class);
+                startActivity(createGroupIntent);
+            }
+        });
     }
 
     private void setDataToGroups() {

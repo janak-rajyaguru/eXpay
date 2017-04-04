@@ -17,8 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CreateGroupActivity"></activity>
-        <activity android:name=".Activities.HomeActivity"></activity>
+        <activity android:name=".Activities.CreateGroupActivity" />
+        <activity android:name=".Activities.HomeActivity" />
+        <activity android:name=".Activities.GroupDetailsActivity" />
+        <activity android:name=".Activities.AddDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -9,9 +9,13 @@ public class Group {
     private String groupName;
 
     Group(){};
+
+
+
+
     public Group(String id, String name){
         groupId = id;
-        groupName = groupName;
+        groupName = name;
     }
 
     public String getGroupId() {

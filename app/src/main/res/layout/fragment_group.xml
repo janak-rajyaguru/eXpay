@@ -13,13 +13,13 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_create_group"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="16dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="Group+"
-            style="@style/Base.Widget.Design.TabLayout"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_add_white"
             />
     </RelativeLayout>
 </FrameLayout>

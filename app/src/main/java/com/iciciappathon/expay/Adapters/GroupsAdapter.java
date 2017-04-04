@@ -54,7 +54,7 @@ public class GroupsAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             view = inflater.inflate(R.layout.group_item, null);
             viewHolder.imgAvatar = (ImageView) view.findViewById(R.id.imgAvatar);
-            viewHolder.txtGrpName = (TextView) view.findViewById(R.id.txtName);
+            viewHolder.txtGrpName = (TextView) view.findViewById(R.id.txtGroupName);
             view.setTag(viewHolder);
         }else{
             viewHolder = (GroupsAdapter.ViewHolder) view.getTag();
