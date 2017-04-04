@@ -1,6 +1,7 @@
 package com.iciciappathon.expay.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,7 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.iciciappathon.expay.Activities.CreateGroupActivity;
+import com.iciciappathon.expay.Adapters.GroupsAdapter;
+import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,19 +27,22 @@ public class GroupFragment extends Fragment{
     private FloatingActionButton mBtnCreateGroup;
     private ListView mGroupListView;
     private View mParentView;
-    public GroupFragment() {
-        // Required empty public constructor
-    }
-
-
+    private GroupsAdapter mGroupsAdapter;
+    private ArrayList<Group> mGroupItemsArrayList = new ArrayList<>();
+    private Group groupItem = null;
+    private Context mContext = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mParentView = inflater.inflate(R.layout.fragment_group, container, false);
-
+        mContext = getActivity().getApplicationContext();
         initializeUiElements(mParentView);
 
-        mBtnCreateGroup.setBackgroundColor(getActivity().getColor(R.color.colorPrimary));
+        setDataToGroups();
+        mGroupsAdapter = new GroupsAdapter(mContext,mGroupItemsArrayList);
+        mGroupListView.setAdapter(mGroupsAdapter);
+
+        mBtnCreateGroup.setBackgroundColor(mContext.getColor(R.color.colorPrimary));
         mBtnCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +52,12 @@ public class GroupFragment extends Fragment{
         });
 
         return mParentView;
+    }
+
+    private void setDataToGroups() {
+        mGroupItemsArrayList.add(new Group("1","Trip"));
+        mGroupItemsArrayList.add(new Group("2","Apartment"));
+        mGroupItemsArrayList.add(new Group("3","Kirana"));
     }
 
     private void initializeUiElements(View view) {
