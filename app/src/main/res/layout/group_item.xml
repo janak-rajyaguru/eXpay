@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@color/colorAccent"
+    android:background="@color/grey_ddd"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -19,6 +19,7 @@
             android:layout_marginLeft="20dp"
             android:textSize="16dp"
             android:text="Heerain"
+            android:gravity="center_vertical"
             android:textColor="@color/colorPrimary"
             android:layout_height="match_parent" />
 </LinearLayout>
