@@ -2,8 +2,10 @@ package com.iciciappathon.expay.Activities;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -31,12 +33,14 @@ public class CreateGroupActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     public SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
 
+        setUpToolbar();
         initComponents();
        /* try {
             getData();
@@ -47,6 +51,15 @@ public class CreateGroupActivity extends AppCompatActivity {
         setDataToList();
         groupMemberListAdapter = new GroupMemberListAdapter(CreateGroupActivity.this, listItemArrayList);
         listViewMembers.setAdapter(groupMemberListAdapter);
+    }
+
+    private void setUpToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(mToolbar != null){
+            setSupportActionBar(mToolbar);
+            mToolbar.setTitleTextColor(Color.WHITE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void initComponents() {

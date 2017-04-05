@@ -1,8 +1,10 @@
 package com.iciciappathon.expay.Activities;
 
+import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,14 +16,24 @@ public class AddDetailsActivity extends AppCompatActivity {
     private EditText etAmount = null;
     private TextInputLayout tilDesc = null;
     private TextInputLayout tilAmount = null;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_details);
-
+        setUpToolBar();
         initComponents();
         addFocusListeners();
+    }
+
+    private void setUpToolBar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null){
+            setSupportActionBar(mToolbar);
+            mToolbar.setTitleTextColor(Color.WHITE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void addFocusListeners() {
