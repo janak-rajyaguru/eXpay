@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import com.iciciappathon.expay.Constants.DatabaseConstants;
 import com.iciciappathon.expay.POJOBeans.Contact;
+import com.iciciappathon.expay.POJOBeans.Group;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_VPA_ID + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+        db.execSQL(DatabaseConstants.GroupTable.CREATE_TABLE);
     }
 
     // Upgrading database
@@ -50,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
-
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.GroupTable.TABLE_GROUP);
         // Create tables again
         onCreate(db);
     }
@@ -140,6 +144,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+
+
+    public void addGroup(Group group){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.GroupTable.GROUP_NAME, group.getGroupName());
+
+        db.insert(DatabaseConstants.GroupTable.TABLE_GROUP,null,contentValues);
+    }
+
+    public List<Group> getAllGroups() {
+        List<Group> groupList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(DatabaseConstants.GroupTable.SELECT_ALL, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Group group = new Group();
+                group.setGroupId(String.valueOf(Integer.parseInt(cursor.getString(0))));
+                group.setGroupName(cursor.getString(1));
+                groupList.add(group);
+            } while (cursor.moveToNext());
+        }
+        return groupList;
     }
 
 }

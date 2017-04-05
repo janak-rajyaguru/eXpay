@@ -8,10 +8,11 @@ public class Group {
     private String groupId;
     private String groupName;
 
-    Group(){};
+    public Group(){};
 
-
-
+    public Group(String name){
+        this.groupName = name;
+    }
 
     public Group(String id, String name){
         groupId = id;
