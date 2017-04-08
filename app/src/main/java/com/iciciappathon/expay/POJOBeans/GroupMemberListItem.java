@@ -9,6 +9,8 @@ import org.json.JSONObject;
 public class GroupMemberListItem {
     String name;
     String VPA_Id;
+    private String groupId;
+    private String memberId;
 
     boolean isTitle = false;
 
@@ -16,7 +18,21 @@ public class GroupMemberListItem {
         this.name = name;
         this.VPA_Id = VPA_Id;
     }
+    public GroupMemberListItem(){};
+    //To insert item into db
+    public GroupMemberListItem(String memberName,String vpaId,String groupId){
+        this.setName(memberName);
+        this.setGroupId(groupId);
+        this.setVPA_Id(vpaId);
+    }
 
+    //To getv Data from Db
+    public GroupMemberListItem(String memberId,String memberName,String vpaId,String groupId){
+        setMemberId(memberId);
+        setName(memberName);
+        setVPA_Id(vpaId);
+        setGroupId(groupId);
+    }
 
  /*   public GroupMemberListItem(JSONObject jsonObject) {
         setName(jsonObject.optString("name"));
@@ -48,5 +64,21 @@ public class GroupMemberListItem {
 
     public void setTitle(boolean title) {
         isTitle = title;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 }

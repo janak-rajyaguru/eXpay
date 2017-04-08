@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import com.iciciappathon.expay.Constants.DatabaseConstants;
 import com.iciciappathon.expay.POJOBeans.Contact;
+import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
+import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_VPA_ID + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
         db.execSQL(DatabaseConstants.GroupTable.CREATE_TABLE);
+        db.execSQL(DatabaseConstants.MembersTable.CREATE_TABLE);
+        db.execSQL(DatabaseConstants.ExpenseTable.CREATE_TABLE);
     }
 
     // Upgrading database
@@ -55,6 +59,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.GroupTable.TABLE_GROUP);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.MembersTable.TABLE_MEMBERS);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.ExpenseTable.TABLE_EXPENSE);
         // Create tables again
         onCreate(db);
     }
@@ -171,6 +177,65 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return groupList;
+    }
+
+    public void addMember(GroupMemberListItem member){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.MembersTable.MEMBER_NAME, member.getName());
+        contentValues.put(DatabaseConstants.MembersTable.MEMBER_UPI, member.getVPA_Id());
+        contentValues.put(DatabaseConstants.MembersTable.MEMBER_GROUP_ID, member.getGroupId());
+        db.insert(DatabaseConstants.MembersTable.TABLE_MEMBERS,null,contentValues);
+    }
+
+    public List<GroupMemberListItem> getMembers(String groupId) {
+        List<GroupMemberListItem> memberList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        /*Cursor cursor = db.query(DatabaseConstants.MembersTable.TABLE_MEMBERS, new String[] { DatabaseConstants.MembersTable.MEMBER_ID,
+                        DatabaseConstants.MembersTable.MEMBER_NAME, DatabaseConstants.MembersTable.MEMBER_UPI,DatabaseConstants.MembersTable.MEMBER_GROUP_ID }, DatabaseConstants.MembersTable.MEMBER_GROUP_ID + "=?",
+                new String[] { groupId }, null, null, null, null);*/
+        Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.SELECT_ALL_FROM_GROUP + "'" + groupId + "'", null);
+        if (cursor.moveToFirst()) {
+            do {
+                GroupMemberListItem groupMemberListItem = new GroupMemberListItem();
+                groupMemberListItem.setMemberId(String.valueOf(Integer.parseInt(cursor.getString(0))));
+                groupMemberListItem.setName(cursor.getString(1));
+                groupMemberListItem.setVPA_Id(cursor.getString(2));
+                groupMemberListItem.setGroupId(cursor.getString(3));
+                memberList.add(groupMemberListItem);
+            } while (cursor.moveToNext());
+        }
+        return memberList;
+    }
+
+    public void addExpense(Expense expense){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.ExpenseTable.GROUP_ID, expense.getGroupId());
+        contentValues.put(DatabaseConstants.ExpenseTable.EXPENSE_DESC, expense.getExpenseDesc());
+        db.insert(DatabaseConstants.ExpenseTable.TABLE_EXPENSE,null,contentValues);
+    }
+
+    public List<Expense> getExpenses(String groupId) {
+        List<Expense> expenseList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(DatabaseConstants.ExpenseTable.TABLE_EXPENSE, new String[] { DatabaseConstants.ExpenseTable.EXPENSE_ID,
+                        DatabaseConstants.ExpenseTable.EXPENSE_DESC, DatabaseConstants.ExpenseTable.GROUP_ID }, DatabaseConstants.ExpenseTable.GROUP_ID + "=?",
+                new String[] { groupId }, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expense = new Expense();
+                expense.setExpenseId(String.valueOf(Integer.parseInt(cursor.getString(0))));
+                expense.setGroupId(cursor.getString(1));
+                expense.setExpenseDesc(cursor.getString(2));
+                expenseList.add(expense);
+            } while (cursor.moveToNext());
+        }
+        return expenseList;
     }
 
 }

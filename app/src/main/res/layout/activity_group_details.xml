@@ -10,7 +10,7 @@
         android:id="@+id/rl_group_details_header"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="162dp">
+        android:layout_height="100dp">
 
         <include
             layout="@layout/app_toolbar"
@@ -19,7 +19,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="162dp"
+            android:layout_height="100dp"
             android:id="@+id/imgAvatar"
             android:layout_below="@+id/toolbar"
             android:background="@color/colorPrimary"/>
@@ -39,9 +39,16 @@
         android:orientation="vertical"
         android:layout_below="@+id/rl_group_details_header">
 
+        <ListView
+            android:id="@+id/lvMemberListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabAddExpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

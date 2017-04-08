@@ -1,10 +1,12 @@
 package com.iciciappathon.expay.POJOBeans;
 
+import java.io.Serializable;
+
 /**
  * Created by HeeRain on 4/4/2017.
  */
 
-public class Group {
+public class Group implements Serializable {
     private String groupId;
     private String groupName;
 

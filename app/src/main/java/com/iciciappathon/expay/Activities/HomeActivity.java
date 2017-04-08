@@ -13,9 +13,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.iciciappathon.expay.Adapters.ViewPagerAdapter;
+import com.iciciappathon.expay.Database.DatabaseHandler;
 import com.iciciappathon.expay.Fragments.GroupFragment;
 import com.iciciappathon.expay.Fragments.NavigationFragment;
 import com.iciciappathon.expay.Fragments.TransactionFragment;
+import com.iciciappathon.expay.POJOBeans.Group;
+import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -25,11 +28,14 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar appToolBar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DatabaseHandler databaseHandler = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        addDataToDatabase();
 
         setupToolbar();
 
@@ -80,5 +86,22 @@ public class HomeActivity extends AppCompatActivity {
 
     public  void  closeDrawer() {
         drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void addDataToDatabase() {
+
+        databaseHandler.addGroup(new Group("Trip"));
+        databaseHandler.addGroup(new Group("Apartment"));
+        databaseHandler.addGroup(new Group("Kirana"));
+
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@icici","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@hdfc","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@axis","3"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@icici","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@hdfc","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@axis","3"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@icici","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@hdfc","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@axis","3"));
     }
 }

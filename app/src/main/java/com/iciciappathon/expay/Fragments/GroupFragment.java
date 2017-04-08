@@ -40,7 +40,6 @@ public class GroupFragment extends Fragment{
     private Group groupItem = null;
     private Context mContext = null;
     DatabaseHandler databaseHandler;
-    public SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
     @Override
@@ -72,17 +71,15 @@ public class GroupFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent createGroupIntent = new Intent(getActivity(), GroupDetailsActivity.class);
-                createGroupIntent.putExtra("GroupName",mGroupItemsArrayList.get(i).getGroupName());
+                Bundle groupBundle = new Bundle();
+                groupBundle.putSerializable("Group",mGroupItemsArrayList.get(i));
+                createGroupIntent.putExtras(groupBundle);
                 startActivity(createGroupIntent);
             }
         });
     }
 
     public void setDataToGroups(){
-        databaseHandler.addGroup(new Group("Trip"));
-        databaseHandler.addGroup(new Group("Apartment"));
-        databaseHandler.addGroup(new Group("Kirana"));
-        mGroupItemsArrayList.clear();
         mGroupItemsArrayList = (ArrayList<Group>) databaseHandler.getAllGroups();
     }
 
