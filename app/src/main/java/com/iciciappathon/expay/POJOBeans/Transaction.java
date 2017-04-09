@@ -1,28 +1,22 @@
 package com.iciciappathon.expay.POJOBeans;
 
 /**
- * Created by HeRain on 4/9/2017.
+ * Created by HeRain on 4/10/2017.
  */
 
-public class Expense {
+public class Transaction {
     private String expenseId;
-    private String groupId;
     private String expenseDesc;
     private String expenseAmount;
+    private String groupName;
 
-    public Expense(){};
+    public Transaction() {};
 
-    public Expense(String eDesc,String eAmount,String gId){
-        this.expenseDesc = eDesc;
-        this.expenseAmount = eAmount;
-        this.groupId = gId;
-    }
-
-    Expense(String eId,String eDesc,String eAmount,String gId){
-        this.expenseDesc = eDesc;
+    public Transaction(String eId,String eDesc,String eAmount,String eGroupName){
         this.expenseId = eId;
+        this.expenseDesc = eDesc;
         this.expenseAmount = eAmount;
-        this.groupId = gId;
+        this.groupName = eGroupName;
     }
 
     public String getExpenseId() {
@@ -31,14 +25,6 @@ public class Expense {
 
     public void setExpenseId(String expenseId) {
         this.expenseId = expenseId;
-    }
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
     }
 
     public String getExpenseDesc() {
@@ -55,5 +41,13 @@ public class Expense {
 
     public void setExpenseAmount(String expenseAmount) {
         this.expenseAmount = expenseAmount;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }
