@@ -11,8 +11,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iciciappathon.expay.Adapters.ExpenseListAdapter;
 import com.iciciappathon.expay.Adapters.MembersListAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.R;
@@ -26,9 +28,14 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private Group group;
     private ListView mLvMemberListView;
+    private ListView mLvExpenseListView;
     private ArrayList<GroupMemberListItem> mMemberItemsArrayList = new ArrayList<>();
+    private ArrayList<Expense> mExpenseArrayList = new ArrayList<>();
     private MembersListAdapter membersListAdapter;
+    private ExpenseListAdapter expenseListAdapter;
+    private Bundle groupBundle;
     DatabaseHandler databaseHandler = new DatabaseHandler(this);
+    private TextView tvExpenseLable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +50,19 @@ public class GroupDetailsActivity extends AppCompatActivity {
         Intent groupIntent = getIntent();
 
         if(groupIntent!=null){
-            Bundle groupBundle = groupIntent.getExtras();
+            groupBundle = groupIntent.getExtras();
             group = (Group) groupBundle.getSerializable("Group");
             mGroupName.setText(group!=null ? group.getGroupName() : "Group Name");
         }
 
         setDataToMemberList();
+        setDataToExpenseList();
+
         membersListAdapter = new MembersListAdapter(this,mMemberItemsArrayList);
         mLvMemberListView.setAdapter(membersListAdapter);
+
+        expenseListAdapter = new ExpenseListAdapter(this,mExpenseArrayList);
+        mLvExpenseListView.setAdapter(expenseListAdapter);
     }
 
     private void setUpToolbar() {
@@ -66,6 +78,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
         fabAddDetails = (FloatingActionButton) findViewById(R.id.fabAddExpense);
         mGroupName = (TextView) findViewById(R.id.tvGroupName);
         mLvMemberListView = (ListView) findViewById(R.id.lvMemberListView);
+        mLvExpenseListView = (ListView) findViewById(R.id.lvExpenseListView);
+        tvExpenseLable = (TextView) findViewById(R.id.tvExpenseLable);
     }
 
     private void setClickListeners() {
@@ -73,7 +87,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent iAddData = new Intent(GroupDetailsActivity.this, AddDetailsActivity.class);
-                startActivity(iAddData);
+                iAddData.putExtras(groupBundle);
+                startActivityForResult(iAddData,1);
             }
         });
     }
@@ -83,4 +98,26 @@ public class GroupDetailsActivity extends AppCompatActivity {
         mMemberItemsArrayList = (ArrayList<GroupMemberListItem>) databaseHandler.getMembers(group.getGroupId());
     }
 
+    private void setDataToExpenseList() {
+        mExpenseArrayList.clear();
+        mExpenseArrayList = (ArrayList<Expense>) databaseHandler.getExpenses(group.getGroupId());
+        if(mExpenseArrayList.size() == 0){
+            tvExpenseLable.setVisibility(View.INVISIBLE);
+        }else{
+            tvExpenseLable.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == 69){
+            refreshExpenseList();
+        }
+    }
+
+    private void refreshExpenseList() {
+        expenseListAdapter = new ExpenseListAdapter(this,mExpenseArrayList);
+        mLvExpenseListView.setAdapter(expenseListAdapter);
+    }
 }
