@@ -12,6 +12,7 @@ import com.iciciappathon.expay.POJOBeans.Contact;
 import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
+import com.iciciappathon.expay.POJOBeans.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,9 +194,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<GroupMemberListItem> memberList = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        /*Cursor cursor = db.query(DatabaseConstants.MembersTable.TABLE_MEMBERS, new String[] { DatabaseConstants.MembersTable.MEMBER_ID,
-                        DatabaseConstants.MembersTable.MEMBER_NAME, DatabaseConstants.MembersTable.MEMBER_UPI,DatabaseConstants.MembersTable.MEMBER_GROUP_ID }, DatabaseConstants.MembersTable.MEMBER_GROUP_ID + "=?",
-                new String[] { groupId }, null, null, null, null);*/
         Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.SELECT_ALL_FROM_GROUP + "'" + groupId + "'", null);
         if (cursor.moveToFirst()) {
             do {
@@ -214,28 +212,63 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseConstants.ExpenseTable.GROUP_ID, expense.getGroupId());
         contentValues.put(DatabaseConstants.ExpenseTable.EXPENSE_DESC, expense.getExpenseDesc());
+        contentValues.put(DatabaseConstants.ExpenseTable.EXPENSE_AMOUNT, expense.getExpenseAmount());
+        contentValues.put(DatabaseConstants.ExpenseTable.GROUP_ID, expense.getGroupId());
         db.insert(DatabaseConstants.ExpenseTable.TABLE_EXPENSE,null,contentValues);
     }
 
     public List<Expense> getExpenses(String groupId) {
         List<Expense> expenseList = new ArrayList<>();
-
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(DatabaseConstants.ExpenseTable.TABLE_EXPENSE, new String[] { DatabaseConstants.ExpenseTable.EXPENSE_ID,
-                        DatabaseConstants.ExpenseTable.EXPENSE_DESC, DatabaseConstants.ExpenseTable.GROUP_ID }, DatabaseConstants.ExpenseTable.GROUP_ID + "=?",
-                new String[] { groupId }, null, null, null, null);
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.ExpenseTable.SELECT_ALL_FROM_GROUP + "'" + groupId + "'", null);
+
+
         if (cursor.moveToFirst()) {
             do {
                 Expense expense = new Expense();
                 expense.setExpenseId(String.valueOf(Integer.parseInt(cursor.getString(0))));
-                expense.setGroupId(cursor.getString(1));
-                expense.setExpenseDesc(cursor.getString(2));
+                expense.setExpenseDesc(cursor.getString(1));
+                expense.setExpenseAmount(cursor.getString(2));
+                expense.setGroupId(cursor.getString(3));
                 expenseList.add(expense);
             } while (cursor.moveToNext());
         }
         return expenseList;
     }
 
+    public List<Transaction> getTransactions() {
+        List<Transaction> transactionList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.ExpenseTable.SELECT_ALL,null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Transaction transaction = new Transaction();
+                transaction.setExpenseId(String.valueOf(Integer.parseInt(cursor.getString(0))));
+                transaction.setExpenseDesc(cursor.getString(1));
+                transaction.setExpenseAmount(cursor.getString(2));
+                transaction.setGroupName(getGroupNameFromGroupId(cursor.getString(3)));
+                transactionList.add(transaction);
+            } while (cursor.moveToNext());
+        }
+        return transactionList;
+    }
+
+    public String getGroupNameFromGroupId(String groupId){
+        String strGroupName = null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.GroupTable.SELECT_GROUP_NAME + "'" + groupId + "'",null);
+
+        if(cursor.moveToFirst()){
+            strGroupName = cursor.getString(0);
+        }else{
+            strGroupName = groupId ;
+        }
+        return strGroupName;
+    }
 }
