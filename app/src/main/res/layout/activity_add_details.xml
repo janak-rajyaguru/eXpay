@@ -20,7 +20,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="162dp"
+            android:layout_height="125dp"
             android:id="@+id/imgAvatar"
             android:background="@color/colorPrimary"/>
 
@@ -53,9 +53,23 @@
                 android:textColorHint="#9daca5"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
         </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnAddExpense"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Add to Group"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:enabled="false"
+            android:background="@color/colorPrimaryDark"
+            />
     </LinearLayout>
 
 </RelativeLayout>

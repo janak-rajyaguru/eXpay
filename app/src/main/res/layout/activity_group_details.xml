@@ -42,8 +42,25 @@
         <ListView
             android:id="@+id/lvMemberListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="180dp">
 
+        </ListView>
+        <TextView
+            android:id="@+id/tvExpenseLable"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Expenses"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold|italic"
+            android:fontFamily="monospace"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+        />
+        <ListView
+            android:id="@+id/lvExpenseListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         </ListView>
 
     </LinearLayout>
