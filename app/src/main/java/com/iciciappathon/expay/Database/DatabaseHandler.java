@@ -186,6 +186,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_NAME, member.getName());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_UPI, member.getVPA_Id());
+        contentValues.put(DatabaseConstants.MembersTable.MEMBER_AMOUNT,member.getMemberAmount());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_GROUP_ID, member.getGroupId());
         db.insert(DatabaseConstants.MembersTable.TABLE_MEMBERS,null,contentValues);
     }
@@ -201,11 +202,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 groupMemberListItem.setMemberId(String.valueOf(Integer.parseInt(cursor.getString(0))));
                 groupMemberListItem.setName(cursor.getString(1));
                 groupMemberListItem.setVPA_Id(cursor.getString(2));
-                groupMemberListItem.setGroupId(cursor.getString(3));
+                groupMemberListItem.setMemberAmount(cursor.getString(3));
+                groupMemberListItem.setGroupId(cursor.getString(4));
                 memberList.add(groupMemberListItem);
             } while (cursor.moveToNext());
         }
         return memberList;
+    }
+
+    public String[] getMemberNames(String groupId) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.SELECT_ALL_FROM_GROUP + "'" + groupId + "'", null);
+        String[] memberNameList = new String[cursor.getCount()];
+        if (cursor.moveToFirst()) {
+            int i=0;
+            do {
+                memberNameList[i] = cursor.getString(1);
+                i++;
+            } while (cursor.moveToNext() && i < 20);
+        }
+        return memberNameList;
     }
 
     public void addExpense(Expense expense){

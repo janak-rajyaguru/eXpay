@@ -24,6 +24,7 @@ public class DatabaseConstants {
         public static final String MEMBER_ID = "MEMBER_ID";
         public static final String MEMBER_NAME = "MEMBER_NAME";
         public static final String MEMBER_UPI = "MEMBER_UPI";
+        public static final String MEMBER_AMOUNT = "MEMBER_AMOUNT";
         public static final String MEMBER_GROUP_ID = "GROUP_ID";
 
         public static final String CREATE_TABLE = " CREATE TABLE " + TABLE_MEMBERS
@@ -31,6 +32,7 @@ public class DatabaseConstants {
                 + MEMBER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + MEMBER_NAME + " TEXT , "
                 + MEMBER_UPI + " TEXT , "
+                + MEMBER_AMOUNT + " TEXT , "
                 + MEMBER_GROUP_ID + " TEXT"
                 + ")";
 
