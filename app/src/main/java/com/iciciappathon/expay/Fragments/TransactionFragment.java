@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.iciciappathon.expay.Adapters.TransactionListAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.Framework.ExPay;
 import com.iciciappathon.expay.POJOBeans.Transaction;
 import com.iciciappathon.expay.R;
 
@@ -33,15 +34,23 @@ public class TransactionFragment extends Fragment {
 
         setdata();
 
-        transactionListAdapter = new TransactionListAdapter(mContext,mTransactionArrayList);
-        lvTransactionList.setAdapter(transactionListAdapter);
-
         return mParentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(ExPay.transactionRefresh){
+            ExPay.transactionRefresh = false;
+            setdata();
+        }
     }
 
     private void setdata() {
         mTransactionArrayList.clear();
         mTransactionArrayList = (ArrayList<Transaction>) databaseHandler.getTransactions();
+        transactionListAdapter = new TransactionListAdapter(mContext,mTransactionArrayList);
+        lvTransactionList.setAdapter(transactionListAdapter);
     }
 
     private void initializeUi() {

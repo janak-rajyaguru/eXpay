@@ -55,7 +55,7 @@ public class MembersListAdapter extends BaseAdapter {
             viewHolder.imgAvatar = (ImageView) view.findViewById(R.id.imgAvatar);
             viewHolder.txtName = (TextView) view.findViewById(R.id.txtName);
             viewHolder.txtVpa = (TextView) view.findViewById(R.id.txtVPA);
-
+            viewHolder.txtMemberAmount = (TextView) view.findViewById(R.id.tvMemberAmount);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -65,6 +65,7 @@ public class MembersListAdapter extends BaseAdapter {
         if(!memberListItem.getName().equals("") && !memberListItem.getVPA_Id().equals("")) {
             viewHolder.txtName.setText(memberListItem.getName());
             viewHolder.txtVpa.setText(memberListItem.getVPA_Id());
+            viewHolder.txtMemberAmount.setText(memberListItem.getMemberAmount());
             viewHolder.txtVpa.setVisibility(View.VISIBLE);
         }
         return view;
@@ -72,6 +73,6 @@ public class MembersListAdapter extends BaseAdapter {
 
     public class ViewHolder{
         ImageView imgAvatar;
-        TextView txtName, txtVpa;
+        TextView txtName, txtVpa, txtMemberAmount;
     }
 }
