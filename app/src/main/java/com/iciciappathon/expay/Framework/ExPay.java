@@ -10,6 +10,9 @@ import android.widget.Toast;
  */
 
 public class ExPay extends Application implements Application.ActivityLifecycleCallbacks{
+
+    public static boolean transactionRefresh = false;
+
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
     }
