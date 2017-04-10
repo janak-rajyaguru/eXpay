@@ -11,6 +11,7 @@ public class GroupMemberListItem {
     String VPA_Id;
     private String groupId;
     private String memberId;
+    private String memberAmount;
 
     boolean isTitle = false;
 
@@ -20,17 +21,19 @@ public class GroupMemberListItem {
     }
     public GroupMemberListItem(){};
     //To insert item into db
-    public GroupMemberListItem(String memberName,String vpaId,String groupId){
+    public GroupMemberListItem(String memberName,String vpaId,String memberAmount,String groupId){
         this.setName(memberName);
-        this.setGroupId(groupId);
         this.setVPA_Id(vpaId);
+        this.setMemberAmount(memberAmount);
+        this.setGroupId(groupId);
     }
 
-    //To getv Data from Db
-    public GroupMemberListItem(String memberId,String memberName,String vpaId,String groupId){
+    //To get Data from Db
+    public GroupMemberListItem(String memberId,String memberName,String vpaId,String memberAmount,String groupId){
         setMemberId(memberId);
         setName(memberName);
         setVPA_Id(vpaId);
+        setMemberAmount(memberAmount);
         setGroupId(groupId);
     }
 
@@ -80,5 +83,13 @@ public class GroupMemberListItem {
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
+    }
+
+    public String getMemberAmount() {
+        return memberAmount;
+    }
+
+    public void setMemberAmount(String memberAmount) {
+        this.memberAmount = memberAmount;
     }
 }

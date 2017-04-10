@@ -1,14 +1,18 @@
 package com.iciciappathon.expay.POJOBeans;
 
+import java.io.Serializable;
+
 /**
  * Created by HeRain on 4/9/2017.
  */
 
-public class Expense {
+public class Expense implements Serializable {
     private String expenseId;
     private String groupId;
     private String expenseDesc;
     private String expenseAmount;
+    private String memberId;
+    private String memberName;
 
     public Expense(){};
 
@@ -55,5 +59,21 @@ public class Expense {
 
     public void setExpenseAmount(String expenseAmount) {
         this.expenseAmount = expenseAmount;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 }
