@@ -94,14 +94,14 @@ public class HomeActivity extends AppCompatActivity {
         databaseHandler.addGroup(new Group("Apartment"));
         databaseHandler.addGroup(new Group("Kirana"));
 
-        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@icici","1"));
-        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@hdfc","2"));
-        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@axis","3"));
-        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@icici","1"));
-        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@hdfc","2"));
-        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@axis","3"));
-        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@icici","1"));
-        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@hdfc","2"));
-        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@axis","3"));
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@icici","0","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@hdfc","0","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@axis","0","3"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@icici","0","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@hdfc","0","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Nitesh","nitesh@axis","0","3"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@icici","0","1"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@hdfc","0","2"));
+        databaseHandler.addMember(new GroupMemberListItem("Janak","janak@axis","0","3"));
     }
 }

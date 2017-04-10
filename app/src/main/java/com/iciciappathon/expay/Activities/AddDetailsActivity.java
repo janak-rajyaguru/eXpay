@@ -1,11 +1,14 @@
 package com.iciciappathon.expay.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ public class AddDetailsActivity extends AppCompatActivity {
     private Button mBtnAddExpense = null;
     DatabaseHandler databaseHandler = new DatabaseHandler(this);
     private Group group;
+    private AutoCompleteTextView autoCompleteTextViewPaidByWhom;
 
     private String strExpenseDesc,strExpenseAmout;
 
@@ -38,6 +42,10 @@ public class AddDetailsActivity extends AppCompatActivity {
 
         Bundle groupBundle = getIntent().getExtras();
         group = (Group) groupBundle.getSerializable("Group");
+
+        String[] memberNamesList = databaseHandler.getMemberNames(group.getGroupId());
+        ArrayAdapter<String> memberNameAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,memberNamesList);
+        autoCompleteTextViewPaidByWhom.setAdapter(memberNameAdapter);
     }
 
     private void setUpToolBar() {
@@ -82,8 +90,16 @@ public class AddDetailsActivity extends AppCompatActivity {
         mBtnAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseHandler.addExpense(new Expense(strExpenseDesc,strExpenseAmout,group.getGroupId()));
-                setResult(69);
+                Expense expense = new Expense(strExpenseDesc,strExpenseAmout,group.getGroupId());
+                databaseHandler.addExpense(expense);
+
+                expense.setMemberName(autoCompleteTextViewPaidByWhom.getText().toString());
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Expense",expense);
+                Intent data = new Intent();
+                data.putExtras(data);
+                setResult(69,data);
                 finish();
             }
         });
@@ -107,5 +123,6 @@ public class AddDetailsActivity extends AppCompatActivity {
         tilDesc = (TextInputLayout) findViewById(R.id.tilDescription);
         tilAmount = (TextInputLayout) findViewById(R.id.tilAmount);
         mBtnAddExpense = (Button) findViewById(R.id.btnAddExpense);
+        autoCompleteTextViewPaidByWhom = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.iciciappathon.expay.Adapters.ExpenseListAdapter;
 import com.iciciappathon.expay.Adapters.MembersListAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.Framework.ExPay;
 import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
@@ -37,6 +38,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler = new DatabaseHandler(this);
     private TextView tvExpenseLable;
 
+    private int groupCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +60,6 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
         setDataToMemberList();
         setDataToExpenseList();
-
-        membersListAdapter = new MembersListAdapter(this,mMemberItemsArrayList);
-        mLvMemberListView.setAdapter(membersListAdapter);
-
-        expenseListAdapter = new ExpenseListAdapter(this,mExpenseArrayList);
-        mLvExpenseListView.setAdapter(expenseListAdapter);
     }
 
     private void setUpToolbar() {
@@ -96,6 +93,9 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private void setDataToMemberList() {
         mMemberItemsArrayList.clear();
         mMemberItemsArrayList = (ArrayList<GroupMemberListItem>) databaseHandler.getMembers(group.getGroupId());
+        membersListAdapter = new MembersListAdapter(this,mMemberItemsArrayList);
+        mLvMemberListView.setAdapter(membersListAdapter);
+        groupCount = mMemberItemsArrayList.size();
     }
 
     private void setDataToExpenseList() {
@@ -106,18 +106,22 @@ public class GroupDetailsActivity extends AppCompatActivity {
         }else{
             tvExpenseLable.setVisibility(View.VISIBLE);
         }
+
+        expenseListAdapter = new ExpenseListAdapter(this,mExpenseArrayList);
+        mLvExpenseListView.setAdapter(expenseListAdapter);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == 69){
+            ExPay.transactionRefresh = true;
             refreshExpenseList();
         }
     }
 
     private void refreshExpenseList() {
-        expenseListAdapter = new ExpenseListAdapter(this,mExpenseArrayList);
-        mLvExpenseListView.setAdapter(expenseListAdapter);
+        setDataToMemberList();
+        setDataToExpenseList();
     }
 }
