@@ -63,7 +63,7 @@ public class ExpenseListAdapter extends BaseAdapter {
 
         expense = mExpenselistItemArrayList.get(position);
         if(expense !=null && !expense.getExpenseDesc().equals(null) && !expense.getExpenseAmount().equals(null)) {
-            viewHolder.txtExpensedesc.setText(expense.getExpenseDesc());
+            viewHolder.txtExpensedesc.setText(expense.getExpenseDesc() + "( " + expense.getMemberName()+ " )");
             viewHolder.txtExpenseAmount.setText(expense.getExpenseAmount());
         }
         return view;

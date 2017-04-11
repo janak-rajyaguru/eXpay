@@ -36,6 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:textColorHint="#c8d2cd"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:layout_height="wrap_content" />
 
 
@@ -54,6 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 />
 
         </android.support.design.widget.TextInputLayout>
@@ -72,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:ems="10" />
 
         </android.support.design.widget.TextInputLayout>

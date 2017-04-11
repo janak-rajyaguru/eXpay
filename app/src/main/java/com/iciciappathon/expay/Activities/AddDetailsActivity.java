@@ -6,6 +6,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -67,7 +69,6 @@ public class AddDetailsActivity extends AppCompatActivity {
                     if(etDesc.getText().length() == 0){
                         tilDesc.setHint("eg. Travel, parking");
                     }
-                    enableAddExpenseButton();
                 }
             }
         });
@@ -82,23 +83,25 @@ public class AddDetailsActivity extends AppCompatActivity {
                     if(etAmount.getText().length() == 0){
                         tilAmount.setHint("0.00");
                     }
-                    enableAddExpenseButton();
                 }
             }
         });
+
+        etDesc.addTextChangedListener(editTextTextWatcher);
+        etAmount.addTextChangedListener(editTextTextWatcher);
+        autoCompleteTextViewPaidByWhom.addTextChangedListener(editTextTextWatcher);
 
         mBtnAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Expense expense = new Expense(strExpenseDesc,strExpenseAmout,group.getGroupId());
+                expense.setMemberName(autoCompleteTextViewPaidByWhom.getText().toString().trim());
+                expense.setMemberId(databaseHandler.getMIDFromMname(expense.getMemberName(),expense.getGroupId()));
                 databaseHandler.addExpense(expense);
-
-                expense.setMemberName(autoCompleteTextViewPaidByWhom.getText().toString());
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Expense",expense);
                 Intent data = new Intent();
-                data.putExtras(data);
+                data.putExtras(bundle);
                 setResult(69,data);
                 finish();
             }
@@ -110,7 +113,7 @@ public class AddDetailsActivity extends AppCompatActivity {
         strExpenseDesc = etDesc.getText().toString().trim();
         strExpenseAmout = etAmount.getText().toString().trim();
 
-        if(group != null &&  group.getGroupId() != null && strExpenseDesc != null && strExpenseDesc.length() > 0 && strExpenseAmout != null && strExpenseAmout.length() > 0) {
+        if(group != null &&  group.getGroupId() != null && strExpenseDesc != null && strExpenseDesc.length() > 0 && strExpenseAmout != null && strExpenseAmout.length() > 0 && autoCompleteTextViewPaidByWhom != null & autoCompleteTextViewPaidByWhom.length()>0) {
             mBtnAddExpense.setEnabled(true);
         }else{
             mBtnAddExpense.setEnabled(false);
@@ -125,4 +128,21 @@ public class AddDetailsActivity extends AppCompatActivity {
         mBtnAddExpense = (Button) findViewById(R.id.btnAddExpense);
         autoCompleteTextViewPaidByWhom = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
     }
+
+    TextWatcher editTextTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            enableAddExpenseButton();
+        }
+    };
 }

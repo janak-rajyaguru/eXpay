@@ -20,6 +20,9 @@ import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.R;
 
+import java.lang.reflect.Member;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class GroupDetailsActivity extends AppCompatActivity {
@@ -37,8 +40,9 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private Bundle groupBundle;
     DatabaseHandler databaseHandler = new DatabaseHandler(this);
     private TextView tvExpenseLable;
-
-    private int groupCount = 0;
+    private Expense expense;
+    private Float individualExpense = 0F;
+    public static int groupCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +117,24 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == 69){
             ExPay.transactionRefresh = true;
+            expense = (Expense) data.getExtras().getSerializable("Expense");
+            individualExpense =(Float.parseFloat(expense.getExpenseAmount()) / groupCount ) ;
+            addExpenseToMembers();
             refreshExpenseList();
+        }
+    }
+
+    private void addExpenseToMembers() {
+        for (GroupMemberListItem member:mMemberItemsArrayList) {
+            if(!member.getMemberId().equals(expense.getMemberId())){
+                String preMemberAmount = databaseHandler.getMemberAmount(member.getMemberId(),member.getGroupId());
+                Float totalAmount = (Float.parseFloat(preMemberAmount!=null?preMemberAmount:"0") + individualExpense);
+                BigDecimal total = new BigDecimal(String.valueOf(totalAmount)).setScale(2,BigDecimal.ROUND_UP);
+                member.setMemberAmount(String.valueOf(total));
+                databaseHandler.updateMemberTotal(member.getMemberAmount(),member.getMemberId(),member.getGroupId());
+            }
         }
     }
 

@@ -37,8 +37,10 @@ public class DatabaseConstants {
                 + ")";
 
         public static final String SELECT_ALL = "SELECT * FROM " + TABLE_MEMBERS;
-
+        public static final String SELECT_MID = "SELECT " + MEMBER_ID + " FROM " + TABLE_MEMBERS + " WHERE " + MEMBER_NAME + " = ";
         public static final String SELECT_ALL_FROM_GROUP = "SELECT * FROM " + TABLE_MEMBERS + " WHERE " + MEMBER_GROUP_ID + " = ";
+        public static final String GET_MEMBER_AMOUNT = "SELECT " + MEMBER_AMOUNT + " FROM " + TABLE_MEMBERS + " WHERE " + MEMBER_ID + " = ";
+        public static final String UPDATE_MEMBER_TOTAL = "UPDATE " + TABLE_MEMBERS + " SET " + MEMBER_AMOUNT + " = ? WHERE " + MEMBER_ID + " = ? AND " + MEMBER_GROUP_ID + " = ?";
 
     }
 
@@ -48,13 +50,17 @@ public class DatabaseConstants {
         public static final String EXPENSE_DESC = "EXPENSE_DESC";
         public static final String EXPENSE_AMOUNT = "EXPENSE_AMOUNT";
         public static final String GROUP_ID = "GROUP_ID";
+        public static final String MEMBER_ID = "MEMBER_ID";
+        public static final String MEMBER_NAME = "MEMBER_NAME";
 
         public static final String CREATE_TABLE = " CREATE TABLE " + TABLE_EXPENSE
                 + "("
                 + EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + EXPENSE_DESC + " TEXT , "
                 + EXPENSE_AMOUNT + " TEXT, "
-                + GROUP_ID + " TEXT"
+                + GROUP_ID + " TEXT, "
+                + MEMBER_ID + " TEXT, "
+                + MEMBER_NAME + " TEXT "
                 + ")";
 
         public static final String SELECT_ALL = "SELECT * FROM " + TABLE_EXPENSE;

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.widget.Toast;
 
 import com.iciciappathon.expay.Constants.DatabaseConstants;
@@ -232,6 +233,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(DatabaseConstants.ExpenseTable.EXPENSE_DESC, expense.getExpenseDesc());
         contentValues.put(DatabaseConstants.ExpenseTable.EXPENSE_AMOUNT, expense.getExpenseAmount());
         contentValues.put(DatabaseConstants.ExpenseTable.GROUP_ID, expense.getGroupId());
+        contentValues.put(DatabaseConstants.ExpenseTable.MEMBER_ID, expense.getMemberId());
+        contentValues.put(DatabaseConstants.ExpenseTable.MEMBER_NAME, expense.getMemberName());
         db.insert(DatabaseConstants.ExpenseTable.TABLE_EXPENSE,null,contentValues);
     }
 
@@ -249,6 +252,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 expense.setExpenseDesc(cursor.getString(1));
                 expense.setExpenseAmount(cursor.getString(2));
                 expense.setGroupId(cursor.getString(3));
+                expense.setMemberId(cursor.getString(4));
+                expense.setMemberName(cursor.getString(5));
                 expenseList.add(expense);
             } while (cursor.moveToNext());
         }
@@ -288,4 +293,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return strGroupName;
     }
+
+    public String getMIDFromMname(String mName,String gid){
+        String memberId = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.SELECT_MID + "'" + mName + "' AND " + DatabaseConstants.MembersTable.MEMBER_GROUP_ID + " ='" + gid + "'",null);
+        if(cursor!=null) {
+            cursor.moveToFirst();
+            memberId = cursor.getString(0);
+        }
+
+        return memberId;
+    }
+
+    public void updateMemberTotal(String totalAmount,String mId,String gId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        SQLiteStatement sqLiteStatement = db.compileStatement(DatabaseConstants.MembersTable.UPDATE_MEMBER_TOTAL);
+        sqLiteStatement.bindString(1,totalAmount);
+        sqLiteStatement.bindString(2,mId);
+        sqLiteStatement.bindString(3,gId);
+        sqLiteStatement.execute();
+    }
+
+    public String getMemberAmount(String memberId,String gId){
+        String memberAmount= null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.GET_MEMBER_AMOUNT + "'" + memberId+ "' AND " + DatabaseConstants.MembersTable.MEMBER_GROUP_ID + " = '" + gId + "'" ,null);
+        if(cursor!=null) {
+            cursor.moveToFirst();
+            memberAmount = cursor.getString(0);
+        }
+        return memberAmount;
+    }
+
 }
