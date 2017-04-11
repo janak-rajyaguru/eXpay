@@ -6,4 +6,19 @@ package com.iciciappathon.expay.UpiController;
 
 //Implement soap request here and send response to UI
 public class NPCICallImplementation {
+
+    public void PayUPIVpaToVpaPayment() {
+
+    }
+    public void PayUPIVpaToAccountPayment() {
+
+    }
+
+    public void CreateVPA() {
+
+    }
+
+    public void DeleteVA() {
+
+    }
 }
