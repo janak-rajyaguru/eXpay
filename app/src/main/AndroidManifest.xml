@@ -3,11 +3,11 @@
     package="com.iciciappathon.expay">
 
     <application
+        android:name=".Framework.ExPay"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".Framework.ExPay"
         android:theme="@style/MyMaterialTheme">
         <activity
             android:name=".Activities.SplashActivity"
@@ -21,7 +21,8 @@
         <activity android:name=".Activities.CreateGroupActivity" />
         <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.GroupDetailsActivity" />
-        <activity android:name=".Activities.AddDetailsActivity"></activity>
+        <activity android:name=".Activities.AddDetailsActivity" />
+        <activity android:name=".Activities.AddMembertoGroupActivity"/>
     </application>
 
 </manifest>

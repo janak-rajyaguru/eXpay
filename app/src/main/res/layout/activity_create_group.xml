@@ -9,24 +9,26 @@
     <include layout="@layout/app_toolbar"
         android:id="@+id/toolbar"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_below="@+id/toolbar"
             android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="10dp"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/etGroupName"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:hint="Group Name"
-                    android:layout_height="wrap_content" />
-            </android.support.design.widget.TextInputLayout>
+                    android:padding="10dp"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/etGroupName"
+                        android:layout_width="match_parent"
+                        android:hint="Enter Group Name"
+                        android:layout_height="wrap_content" />
+                </android.support.design.widget.TextInputLayout>
 
-            <TextView
+                <TextView
                 android:id="@+id/txtGrpMembers"
                 android:background="#D3D3D3"
                 android:layout_width="match_parent"
@@ -35,12 +37,35 @@
                 android:paddingLeft="10dp"
                 android:text="Group Members"/>
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
-        </ListView>
-        <LinearLayout
+                <ListView
+                    android:id="@+id/memberListViewforCreateGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ListView>
+            </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btn_add_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circle"
+                android:src="@drawable/ic_add_white"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btn_create_group"
+                android:layout_below="@+id/btn_add_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circle"
+                android:src="@drawable/ic_add_white"/>
+
+       <!-- <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
@@ -89,7 +114,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
 
-        </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>-->
+    </RelativeLayout>
 
 </RelativeLayout>

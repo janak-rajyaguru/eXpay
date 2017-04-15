@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_memberto_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iciciappathon.expay.Activities.AddMembertoGroupActivity">
+
+    <include
+        layout="@layout/app_toolbar"
+        android:id="@+id/toolbar"/>
+    <LinearLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter Member Full Name"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_Member_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:ems="10" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter Account No."
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etMemberAccoutNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:ems="10" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:hint="Enter IFSC Code."
+        android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etMemberIFSC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:ems="10" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter VPA - memberVPA@icici "
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etMemberVPA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:ems="10" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnAddMemberToGroup"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Add to Group"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:enabled="false"
+            android:background="@color/colorPrimaryDark"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

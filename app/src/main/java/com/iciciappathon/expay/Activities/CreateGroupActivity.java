@@ -1,11 +1,14 @@
 package com.iciciappathon.expay.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -34,6 +37,8 @@ public class CreateGroupActivity extends AppCompatActivity {
     public SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     private Toolbar mToolbar;
+    private FloatingActionButton btnAddMembers;
+    private FloatingActionButton btnCreateGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +52,19 @@ public class CreateGroupActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
-        setTempData();
-        setDataToList();
+        //setTempData();
+        //setDataToList();
         groupMemberListAdapter = new GroupMemberListAdapter(CreateGroupActivity.this, listItemArrayList);
         listViewMembers.setAdapter(groupMemberListAdapter);
+
+        btnAddMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addMemberIntent = new Intent(CreateGroupActivity.this,AddMembertoGroupActivity.class);
+                startActivityForResult(addMemberIntent,99);
+            }
+        });
+
     }
 
     private void setUpToolbar() {
@@ -64,7 +78,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     private void initComponents() {
         etGroupName = (EditText) findViewById(R.id.etGroupName);
-        listViewMembers = (ListView) findViewById(R.id.listView);
+        listViewMembers = (ListView) findViewById(R.id.memberListViewforCreateGroup);
+        btnAddMembers = (FloatingActionButton) findViewById(R.id.btn_add_member);
+        btnCreateGroup = (FloatingActionButton) findViewById(R.id.btn_create_group);
         databaseHandler = new DatabaseHandler(this);
     }
 
@@ -112,7 +128,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         databaseHandler.addContact(new Contact("Kavita", "nitesh@axisbank.com"));
     }
 
-    public void setDataToList(){
+    public void setDataToList() {
         sqLiteDatabase = databaseHandler.getWritableDatabase();
         cursor = sqLiteDatabase.rawQuery("SELECT * FROM eXpayMembers", null);
 
@@ -121,10 +137,27 @@ public class CreateGroupActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
                 listItem = new GroupMemberListItem(cursor.getString(cursor.getColumnIndex(databaseHandler.getName())),
-                                     cursor.getString(cursor.getColumnIndex(databaseHandler.getVPA())) );
+                        cursor.getString(cursor.getColumnIndex(databaseHandler.getVPA())));
                 listItemArrayList.add(listItem);
 
             } while (cursor.moveToNext());
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 99 && resultCode == 15){
+            GroupMemberListItem memberData = (GroupMemberListItem) data.getExtras().getSerializable("memberToGroup");
+            listItemArrayList.add(memberData);
+            groupMemberListAdapter = new GroupMemberListAdapter(CreateGroupActivity.this, listItemArrayList);
+            listViewMembers.setAdapter(groupMemberListAdapter);
+
+            if(listItemArrayList.size() > 0){
+                btnCreateGroup.setVisibility(View.VISIBLE);
+            }else{
+                btnCreateGroup.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
 }

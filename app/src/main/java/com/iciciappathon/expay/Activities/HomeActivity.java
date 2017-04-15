@@ -90,9 +90,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void addDataToDatabase() {
 
-        databaseHandler.addGroup(new Group("Trip"));
+        /*databaseHandler.addGroup(new Group("Trip"));
         databaseHandler.addGroup(new Group("Apartment"));
-        databaseHandler.addGroup(new Group("Kirana"));
+        databaseHandler.addGroup(new Group("Kirana"));*/
 
         databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@icici","0","1"));
         databaseHandler.addMember(new GroupMemberListItem("Heerain","heerain@hdfc","0","2"));

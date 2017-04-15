@@ -2,16 +2,20 @@ package com.iciciappathon.expay.POJOBeans;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by HP on 02-04-2017.
  */
 
-public class GroupMemberListItem {
+public class GroupMemberListItem implements Serializable {
     String name;
     String VPA_Id;
     private String groupId;
     private String memberId;
     private String memberAmount;
+    private String memberAccoutno;
+    private String memberIFSC;
 
     boolean isTitle = false;
 
@@ -35,6 +39,16 @@ public class GroupMemberListItem {
         setVPA_Id(vpaId);
         setMemberAmount(memberAmount);
         setGroupId(groupId);
+    }
+
+    public GroupMemberListItem(String memberId,String memberName,String vpaId,String memberAmount,String groupId,String memberAccoutno,String memberIFSC){
+        setMemberId(memberId);
+        setName(memberName);
+        setVPA_Id(vpaId);
+        setMemberAmount(memberAmount);
+        setGroupId(groupId);
+        setMemberAccoutno(memberAccoutno);
+        setMemberIFSC(memberIFSC);
     }
 
  /*   public GroupMemberListItem(JSONObject jsonObject) {
@@ -91,5 +105,21 @@ public class GroupMemberListItem {
 
     public void setMemberAmount(String memberAmount) {
         this.memberAmount = memberAmount;
+    }
+
+    public String getMemberAccoutno() {
+        return memberAccoutno;
+    }
+
+    public void setMemberAccoutno(String memberAccoutno) {
+        this.memberAccoutno = memberAccoutno;
+    }
+
+    public String getMemberIFSC() {
+        return memberIFSC;
+    }
+
+    public void setMemberIFSC(String memberIFSC) {
+        this.memberIFSC = memberIFSC;
     }
 }
