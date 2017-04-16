@@ -12,7 +12,7 @@ public class DatabaseConstants {
         public static final String GROUP_NAME = "GROUP_NAME";
 
         public static final String CREATE_TABLE = " CREATE TABLE " + TABLE_GROUP + "(" + GROUP_ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT ," + GROUP_NAME + " TEXT " + ")";
+                " INTEGER PRIMARY KEY ," + GROUP_NAME + " TEXT " + ")";
 
         public static final String SELECT_ALL = " SELECT * FROM " + TABLE_GROUP;
 

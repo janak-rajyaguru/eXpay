@@ -14,6 +14,7 @@
             android:layout_below="@+id/toolbar"
             android:layout_height="match_parent">
             <LinearLayout
+                android:id="@+id/llListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -25,6 +26,7 @@
                         android:id="@+id/etGroupName"
                         android:layout_width="match_parent"
                         android:hint="Enter Group Name"
+                        android:imeOptions="actionDone"
                         android:layout_height="wrap_content" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -40,23 +42,23 @@
                 <ListView
                     android:id="@+id/memberListViewforCreateGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
                 </ListView>
             </LinearLayout>
-            <android.support.design.widget.FloatingActionButton
+            <Button
                 android:id="@+id/btn_add_member"
+                android:layout_below="@+id/llListView"
                 android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
-                android:layout_marginRight="16dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/circle"
-                android:src="@drawable/ic_add_white"/>
+                android:paddingLeft="40dp"
+                android:text="Add more members + "
+                android:paddingRight="40dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/btn_create_group"
-                android:layout_below="@+id/btn_add_member"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

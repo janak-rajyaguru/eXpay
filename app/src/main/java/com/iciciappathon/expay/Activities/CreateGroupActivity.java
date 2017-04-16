@@ -9,12 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.iciciappathon.expay.Adapters.GroupMemberListAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
 import com.iciciappathon.expay.POJOBeans.Contact;
+import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.R;
 
@@ -37,7 +39,8 @@ public class CreateGroupActivity extends AppCompatActivity {
     public SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     private Toolbar mToolbar;
-    private FloatingActionButton btnAddMembers;
+    private Button btnAddMembers;
+
     private FloatingActionButton btnCreateGroup;
 
     @Override
@@ -65,6 +68,21 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         });
 
+        btnCreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int maxGId = databaseHandler.getMaxGroupId() + 1;
+                Group group = new Group(String.valueOf(maxGId),etGroupName.getText().toString().trim());
+                databaseHandler.addGroup(group);
+                for (GroupMemberListItem member:listItemArrayList){
+                    member.setGroupId(String.valueOf(maxGId));
+                    databaseHandler.addMember(member);
+                }
+                Intent intent = new Intent(CreateGroupActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setUpToolbar() {
@@ -79,7 +97,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void initComponents() {
         etGroupName = (EditText) findViewById(R.id.etGroupName);
         listViewMembers = (ListView) findViewById(R.id.memberListViewforCreateGroup);
-        btnAddMembers = (FloatingActionButton) findViewById(R.id.btn_add_member);
+        btnAddMembers = (Button) findViewById(R.id.btn_add_member);
         btnCreateGroup = (FloatingActionButton) findViewById(R.id.btn_create_group);
         databaseHandler = new DatabaseHandler(this);
     }

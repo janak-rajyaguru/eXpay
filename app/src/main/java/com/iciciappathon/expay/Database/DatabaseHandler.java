@@ -159,6 +159,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.GroupTable.GROUP_ID, group.getGroupId());
         contentValues.put(DatabaseConstants.GroupTable.GROUP_NAME, group.getGroupName());
 
         db.insert(DatabaseConstants.GroupTable.TABLE_GROUP,null,contentValues);
@@ -179,6 +180,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return groupList;
+    }
+
+    public int getMaxGroupId(){
+        int groupId=0;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(" + DatabaseConstants.GroupTable.GROUP_ID + ") FROM " + DatabaseConstants.GroupTable.TABLE_GROUP,null);
+        cursor.moveToFirst();
+        groupId = cursor.getInt(0);
+        return groupId!=0?groupId:0;
     }
 
     public void addMember(GroupMemberListItem member){
