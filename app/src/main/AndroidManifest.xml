@@ -22,7 +22,8 @@
         <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.GroupDetailsActivity" />
         <activity android:name=".Activities.AddDetailsActivity" />
-        <activity android:name=".Activities.AddMembertoGroupActivity"/>
+        <activity android:name=".Activities.AddMembertoGroupActivity" />
+        <activity android:name=".Activities.SattlementActivity"></activity>
     </application>
 
 </manifest>

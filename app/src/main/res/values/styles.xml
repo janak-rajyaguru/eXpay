@@ -22,4 +22,8 @@
         <item name="tabSelectedTextColor">#FFFFFF</item>
     </style>
 
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
+
 </resources>

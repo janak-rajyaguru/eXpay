@@ -161,6 +161,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseConstants.GroupTable.GROUP_ID, group.getGroupId());
         contentValues.put(DatabaseConstants.GroupTable.GROUP_NAME, group.getGroupName());
+        contentValues.put(DatabaseConstants.GroupTable.GROUP_TOTAL, group.getGroupTotal());
 
         db.insert(DatabaseConstants.GroupTable.TABLE_GROUP,null,contentValues);
     }
@@ -176,6 +177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Group group = new Group();
                 group.setGroupId(String.valueOf(Integer.parseInt(cursor.getString(0))));
                 group.setGroupName(cursor.getString(1));
+                group.setGroupTotal(cursor.getString(2));
                 groupList.add(group);
             } while (cursor.moveToNext());
         }
@@ -200,6 +202,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_UPI, member.getVPA_Id());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_AMOUNT,member.getMemberAmount());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_GROUP_ID, member.getGroupId());
+        contentValues.put(DatabaseConstants.MembersTable.MEMBER_EXPENSE_TOTAL, member.getMemberExpenseTotal());
         db.insert(DatabaseConstants.MembersTable.TABLE_MEMBERS,null,contentValues);
     }
 
@@ -216,6 +219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 groupMemberListItem.setVPA_Id(cursor.getString(2));
                 groupMemberListItem.setMemberAmount(cursor.getString(3));
                 groupMemberListItem.setGroupId(cursor.getString(4));
+                groupMemberListItem.setMemberExpenseTotal(cursor.getString(5));
                 memberList.add(groupMemberListItem);
             } while (cursor.moveToNext());
         }
@@ -305,6 +309,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return strGroupName;
     }
 
+    public String getGroupTotal(String groupId){
+        String strGroupTotal = null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.GroupTable.SELECT_GROUP_TOTAL + "'" + groupId + "'",null);
+
+        if(cursor.moveToFirst()){
+            strGroupTotal = cursor.getString(0);
+        }else{
+            strGroupTotal = "0" ;
+        }
+        return strGroupTotal;
+    }
+
     public String getMIDFromMname(String mName,String gid){
         String memberId = null;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -326,6 +345,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteStatement.bindString(2,mId);
         sqLiteStatement.bindString(3,gId);
         sqLiteStatement.execute();
+    }
+
+    public void updateGroupTotal(Group group){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        SQLiteStatement sqLiteStatement = db.compileStatement(DatabaseConstants.GroupTable.UPDATE_GROUP_TOTAL);
+        sqLiteStatement.bindString(1,group.getGroupTotal());
+        sqLiteStatement.bindString(2,group.getGroupId());
+        sqLiteStatement.execute();
+    }
+
+    public void updateMemberExpenseTotal(String mExTotal,String mId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        SQLiteStatement sqLiteStatement = db.compileStatement(DatabaseConstants.MembersTable.UPDATE_MEMBER_EXPENSE_TOTAL);
+        sqLiteStatement.bindString(1,mExTotal);
+        sqLiteStatement.bindString(2,mId);
+        sqLiteStatement.execute();
+    }
+
+    public String getMemberExpenseTotal(String mId){
+        String memberExpenseTotal="0";
+
+        SQLiteDatabase db= this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(DatabaseConstants.MembersTable.GET_MEMBER_EXPENSE_TOTAl + "'" + mId + "'",null);
+        if(cursor.moveToFirst()){
+           memberExpenseTotal = cursor.getString(0);
+        }else{
+            memberExpenseTotal = "0";
+        }
+        return memberExpenseTotal;
     }
 
     public String getMemberAmount(String memberId,String gId){

@@ -20,6 +20,9 @@ import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.R;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class AddDetailsActivity extends AppCompatActivity {
 
     private EditText etDesc = null;
@@ -102,6 +105,26 @@ public class AddDetailsActivity extends AppCompatActivity {
                 bundle.putSerializable("Expense",expense);
                 Intent data = new Intent();
                 data.putExtras(bundle);
+
+                BigDecimal groupExpense = new BigDecimal(expense.getExpenseAmount());
+
+                String preExTotal = databaseHandler.getMemberExpenseTotal(expense.getMemberId());
+                BigDecimal preExpenseTotal;
+                if(preExTotal != null){
+                    preExpenseTotal = new BigDecimal(preExTotal);
+                }else{
+                    preExpenseTotal = new BigDecimal(BigInteger.ZERO);
+                }
+
+                BigDecimal memberExpenseTotal = preExpenseTotal.add(groupExpense);
+                databaseHandler.updateMemberExpenseTotal(String.valueOf(memberExpenseTotal),expense.getMemberId());
+                BigDecimal preTotal = new BigDecimal(databaseHandler.getGroupTotal(group.getGroupId()));
+
+
+                BigDecimal groupTotal = groupExpense.add(preTotal);
+                group.setGroupTotal(String.valueOf(groupTotal));
+                databaseHandler.updateGroupTotal(group);
+
                 setResult(69,data);
                 finish();
             }

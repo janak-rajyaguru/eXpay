@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Group implements Serializable {
     private String groupId;
     private String groupName;
+    private String groupTotal;
 
     public Group(){};
 
@@ -19,6 +20,7 @@ public class Group implements Serializable {
     public Group(String id, String name){
         groupId = id;
         groupName = name;
+        groupTotal = "0";
     }
 
     public String getGroupId() {
@@ -35,5 +37,13 @@ public class Group implements Serializable {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public String getGroupTotal() {
+        return groupTotal;
+    }
+
+    public void setGroupTotal(String groupTotal) {
+        this.groupTotal = groupTotal;
     }
 }

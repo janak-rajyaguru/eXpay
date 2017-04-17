@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sattlement"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iciciappathon.expay.Activities.SattlementActivity">
+
+    <include
+        layout="@layout/app_toolbar"
+        android:id="@+id/toolbar"
+        />
+
+    <LinearLayout
+        android:id="@+id/llDynamicHisab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:id="@+id/hisab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llDynamicHisab"
+        android:layout_margin="16dp"
+        android:visibility="visible"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvDenewala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chinmay"
+            android:textSize="25dp"/>
+
+        <ImageView
+            android:id="@+id/aero"
+            android:layout_toRightOf="@+id/tvDenewala"
+            android:src="@drawable/aero"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            />
+        <TextView
+            android:id="@+id/tvLenewala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/aero"
+            android:text="Hiren"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="10 Rs."
+            android:textSize="25dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/hisab1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llDynamicHisab"
+        android:layout_margin="16dp"
+        android:visibility="visible"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvDenewala1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ankur"
+            android:textSize="25dp"/>
+
+        <ImageView
+            android:id="@+id/aero1"
+            android:layout_toRightOf="@+id/tvDenewala1"
+            android:src="@drawable/aero"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            />
+        <TextView
+            android:id="@+id/tvLenewala1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/aero1"
+            android:text="Hiren"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/tvAmount1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="40 Rs."
+            android:textSize="25dp"/>
+
+    </RelativeLayout>
+        <Button
+            android:id="@+id/btnsattle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sattle"
+            android:background="#9AA"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

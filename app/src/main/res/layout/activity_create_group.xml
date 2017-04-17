@@ -27,6 +27,7 @@
                         android:layout_width="match_parent"
                         android:hint="Enter Group Name"
                         android:imeOptions="actionDone"
+                        android:lines="1"
                         android:layout_height="wrap_content" />
                 </android.support.design.widget.TextInputLayout>
 

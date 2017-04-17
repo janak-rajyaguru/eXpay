@@ -2,11 +2,13 @@ package com.iciciappathon.expay.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,25 +45,23 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private Expense expense;
     private Float individualExpense = 0F;
     public static int groupCount = 0;
+    private Button btnSattlement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_details);
 
-        setUpToolbar();
-
-        initComponents();
-        setClickListeners();
-
         Intent groupIntent = getIntent();
-
         if(groupIntent!=null){
             groupBundle = groupIntent.getExtras();
             group = (Group) groupBundle.getSerializable("Group");
-            mGroupName.setText(group!=null ? group.getGroupName() : "Group Name");
+            //mGroupName.setText(group!=null ? group.getGroupName() : "Group Name");
         }
 
+        setUpToolbar();
+        initComponents();
+        setClickListeners();
         setDataToMemberList();
         setDataToExpenseList();
     }
@@ -71,16 +71,18 @@ public class GroupDetailsActivity extends AppCompatActivity {
         if(mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(group.getGroupName());
             mToolbar.setTitleTextColor(Color.WHITE);
         }
     }
 
     private void initComponents() {
         fabAddDetails = (FloatingActionButton) findViewById(R.id.fabAddExpense);
-        mGroupName = (TextView) findViewById(R.id.tvGroupName);
+        //mGroupName = (TextView) findViewById(R.id.tvGroupName);
         mLvMemberListView = (ListView) findViewById(R.id.lvMemberListView);
         mLvExpenseListView = (ListView) findViewById(R.id.lvExpenseListView);
         tvExpenseLable = (TextView) findViewById(R.id.tvExpenseLable);
+        btnSattlement = (Button) findViewById(R.id.btnSattlement);
     }
 
     private void setClickListeners() {
@@ -90,6 +92,17 @@ public class GroupDetailsActivity extends AppCompatActivity {
                 Intent iAddData = new Intent(GroupDetailsActivity.this, AddDetailsActivity.class);
                 iAddData.putExtras(groupBundle);
                 startActivityForResult(iAddData,1);
+            }
+        });
+
+        btnSattlement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sattlementActivityIntent = new Intent(GroupDetailsActivity.this,SattlementActivity.class);
+                sattlementActivityIntent.putExtra("expenseList", mExpenseArrayList);
+                sattlementActivityIntent.putExtra("memberlist",mMemberItemsArrayList);
+                sattlementActivityIntent.putExtra("group",group);
+                startActivity(sattlementActivityIntent);
             }
         });
     }
@@ -128,13 +141,13 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
     private void addExpenseToMembers() {
         for (GroupMemberListItem member:mMemberItemsArrayList) {
-            if(!member.getMemberId().equals(expense.getMemberId())){
+            //if(!member.getMemberId().equals(expense.getMemberId())){
                 String preMemberAmount = databaseHandler.getMemberAmount(member.getMemberId(),member.getGroupId());
                 Float totalAmount = (Float.parseFloat(preMemberAmount!=null?preMemberAmount:"0") + individualExpense);
                 BigDecimal total = new BigDecimal(String.valueOf(totalAmount)).setScale(2,BigDecimal.ROUND_UP);
                 member.setMemberAmount(String.valueOf(total));
                 databaseHandler.updateMemberTotal(member.getMemberAmount(),member.getMemberId(),member.getGroupId());
-            }
+            //}
         }
     }
 

@@ -16,6 +16,8 @@ public class GroupMemberListItem implements Serializable {
     private String memberAmount;
     private String memberAccoutno;
     private String memberIFSC;
+    private String memberExpenseTotal;
+    private String memberAdjustedAmount;
 
     boolean isTitle = false;
 
@@ -30,6 +32,7 @@ public class GroupMemberListItem implements Serializable {
         this.setVPA_Id(vpaId);
         this.setMemberAmount(memberAmount);
         this.setGroupId(groupId);
+        this.setMemberExpenseTotal("0");
     }
 
     //To get Data from Db
@@ -121,5 +124,21 @@ public class GroupMemberListItem implements Serializable {
 
     public void setMemberIFSC(String memberIFSC) {
         this.memberIFSC = memberIFSC;
+    }
+
+    public String getMemberExpenseTotal() {
+        return memberExpenseTotal;
+    }
+
+    public void setMemberExpenseTotal(String memberExpenseTotal) {
+        this.memberExpenseTotal = memberExpenseTotal;
+    }
+
+    public String getMemberAdjustedAmount() {
+        return memberAdjustedAmount;
+    }
+
+    public void setMemberAdjustedAmount(String memberAdjustedAmount) {
+        this.memberAdjustedAmount = memberAdjustedAmount;
     }
 }
