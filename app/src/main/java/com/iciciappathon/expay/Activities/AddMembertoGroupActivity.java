@@ -2,6 +2,7 @@ package com.iciciappathon.expay.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,10 @@ public class AddMembertoGroupActivity extends AppCompatActivity {
 
     private EditText etMemberName,etMemberAccountNo,etMemberIFSC,etMemberVPA;
     String strMembername,strMemberAccountNo,strMemberIFSC,strMemberVPA;
+    private TextInputLayout tilName = null;
+    private TextInputLayout tilAccount = null;
+    private TextInputLayout tilIFSC = null;
+    private TextInputLayout tilVPA = null;
     private Button btnAddMember;
     private Toolbar mToolbar;
     @Override
@@ -28,6 +33,63 @@ public class AddMembertoGroupActivity extends AppCompatActivity {
         setUpToolbar();
         initializeComponents();
         AddedTextWatchers();
+        addFocusListeners();
+    }
+
+    private void addFocusListeners() {
+        etMemberName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    tilName.setHint("Name");
+                } else {
+                    if(etMemberName.getText().length() == 0){
+                        tilName.setHint("Enter Name");
+                    }
+                }
+            }
+        });
+
+
+        etMemberAccountNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    tilAccount.setHint("Account Number");
+                } else {
+                    if(etMemberAccountNo.getText().length() == 0){
+                        tilAccount.setHint("Enter Account No.");
+                    }
+                }
+            }
+        });
+
+        etMemberIFSC.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    tilIFSC.setHint("IFSC");
+                } else {
+                    if(etMemberIFSC.getText().length() == 0){
+                        tilIFSC.setHint("Enter IFSC");
+                    }
+                }
+            }
+        });
+
+
+        etMemberVPA.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    tilVPA.setHint("VPA Id");
+                } else {
+                    if(etMemberVPA.getText().length() == 0){
+                        tilVPA.setHint("Enter VPA Id");
+                    }
+                }
+            }
+        });
     }
 
     private void AddedTextWatchers() {
@@ -43,6 +105,10 @@ public class AddMembertoGroupActivity extends AppCompatActivity {
         etMemberIFSC = (EditText) findViewById(R.id.etMemberIFSC);
         etMemberVPA = (EditText) findViewById(R.id.etMemberVPA);
         btnAddMember = (Button) findViewById(R.id.btnAddMemberToGroup);
+        tilName = (TextInputLayout) findViewById(R.id.tilName);
+        tilAccount = (TextInputLayout) findViewById(R.id.tilAccount);
+        tilIFSC = (TextInputLayout) findViewById(R.id.tilIFSC);
+        tilVPA = (TextInputLayout) findViewById(R.id.tilVPA);
 
         btnAddMember.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,10 +16,11 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilName"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:hint="Enter Member Full Name"
+            android:hint="Enter Name"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/et_Member_Name"
@@ -33,6 +34,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilAccount"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -50,10 +52,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilIFSC"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:hint="Enter IFSC Code."
+        android:hint="Enter IFSC Code"
         android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etMemberIFSC"
@@ -67,10 +70,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilVPA"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:hint="Enter VPA - memberVPA@icici "
+            android:hint="Enter VPA Id"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etMemberVPA"
@@ -83,18 +87,19 @@
                 android:ems="10" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnAddMemberToGroup"
-            android:layout_margin="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Add to Group"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:enabled="false"
-            android:background="@color/colorPrimaryDark"
-            />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddMemberToGroup"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Add to Group"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:enabled="false"
+        android:background="@color/colorPrimaryDark"
+        />
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,7 +40,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     public SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     private Toolbar mToolbar;
-    private Button btnAddMembers;
+ //   private Button btnAddMembers;
 
     private FloatingActionButton btnCreateGroup;
 
@@ -50,6 +51,14 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         setUpToolbar();
         initComponents();
+        GroupMemberListItem firstMember = new GroupMemberListItem();
+        firstMember.setName("");
+        firstMember.setVPA_Id("");
+        GroupMemberListItem selfMember = new GroupMemberListItem();
+        selfMember.setName("Nitesh");
+        selfMember.setVPA_Id("nitesh@axisbank");
+        listItemArrayList.add(firstMember);
+        listItemArrayList.add(selfMember);
        /* try {
             getData();
         } catch (JSONException e) {
@@ -60,13 +69,23 @@ public class CreateGroupActivity extends AppCompatActivity {
         groupMemberListAdapter = new GroupMemberListAdapter(CreateGroupActivity.this, listItemArrayList);
         listViewMembers.setAdapter(groupMemberListAdapter);
 
-        btnAddMembers.setOnClickListener(new View.OnClickListener() {
+        listViewMembers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0){
+                    Intent addMemberIntent = new Intent(CreateGroupActivity.this, AddMembertoGroupActivity.class);
+                    startActivityForResult(addMemberIntent,99);
+                }
+            }
+        });
+
+      /*  btnAddMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent addMemberIntent = new Intent(CreateGroupActivity.this,AddMembertoGroupActivity.class);
                 startActivityForResult(addMemberIntent,99);
             }
-        });
+        });*/
 
         btnCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +116,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void initComponents() {
         etGroupName = (EditText) findViewById(R.id.etGroupName);
         listViewMembers = (ListView) findViewById(R.id.memberListViewforCreateGroup);
-        btnAddMembers = (Button) findViewById(R.id.btn_add_member);
+     //   btnAddMembers = (Button) findViewById(R.id.btn_add_member);
         btnCreateGroup = (FloatingActionButton) findViewById(R.id.btn_create_group);
         databaseHandler = new DatabaseHandler(this);
     }
