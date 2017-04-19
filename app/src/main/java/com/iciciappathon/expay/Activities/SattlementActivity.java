@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,11 +31,11 @@ public class SattlementActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private DatabaseHandler databaseHandler;
     private Group group;
-    private LinearLayout mllDynamicHisab;
+    private LinearLayout mllDynamicHisab,ll_container;
     private RelativeLayout mrlHisab,hisab1;
     private TextView tvDenevala,tvLenevala,tvAmount,tvAmount1;
     private Button btnsattle;
-    private int count;
+    //private int count;
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     private ArrayList<GroupMemberListItem> denevaloKiList = new ArrayList<>();
@@ -51,7 +52,7 @@ public class SattlementActivity extends AppCompatActivity {
             mMemberItemsArrayList = (ArrayList<GroupMemberListItem>) intent.getSerializableExtra("memberlist");
             mExpenseArrayList = (ArrayList<Expense>) intent.getSerializableExtra("expenseList");
             group = (Group) intent.getSerializableExtra("group");
-            count = (int) intent.getIntExtra("count",1);
+            //count = (int) intent.getIntExtra("count",1);
             //group.setGroupTotal(databaseHandler.getGroupTotal(group.getGroupId()));
         }
 
@@ -59,43 +60,50 @@ public class SattlementActivity extends AppCompatActivity {
         initComponents();
 
         adjustMemberAmount();
-        //DoMaathAndUpdateUi();
+        DoMaathAndUpdateUi();
 
-        if(count > 1){
+        /*if(count > 1){
             mrlHisab.setVisibility(View.GONE);
             tvAmount1.setText("30 Rs.");
-        }
+        }*/
 
-        btnsattle.setOnClickListener(new View.OnClickListener() {
+        /*btnsattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SattlementActivity.this, "Request for money has been sent", Toast.LENGTH_SHORT).show();
                 Intent home = new Intent(SattlementActivity.this,HomeActivity.class);
                 startActivity(home);
             }
-        });
+        });*/
     }
 
     private void DoMaathAndUpdateUi() {
         int denewala=0,lenewala=0;
-        while(totalAmount.compareTo(BigDecimal.ZERO) < 0){
+        while(totalAmount.floatValue() > 0){
             BigDecimal denevalaAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
             BigDecimal lenevalaAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount());
             BigDecimal subAmount = new BigDecimal(BigInteger.ZERO);
 
-            tvLenevala.setText(lenevaloKiList.get(denewala).getName());
-            tvDenevala.setText(denevaloKiList.get(lenewala).getName());
+            //tvLenevala.setText(lenevaloKiList.get(denewala).getName());
+            //tvDenevala.setText(denevaloKiList.get(lenewala).getName());
 
-            if(lenevalaAmount.compareTo(denevalaAmount) > 0 ){
+            if(lenevalaAmount.compareTo(denevalaAmount) == 0){
+                subAmount  = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
+                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                lenewala++;
+                denewala++;
+            }else if(lenevalaAmount.compareTo(denevalaAmount) > 0 ){
                 subAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
+                BigDecimal newAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount()).subtract(subAmount);
+                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                lenevaloKiList.get(lenewala).setMemberAdjustedAmount(String.valueOf(newAmount));
                 denewala++;
             }else if (lenevalaAmount.compareTo(denevalaAmount) < 0){
                 subAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount());
+                BigDecimal newAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount()).subtract(subAmount);
+                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                denevaloKiList.get(denewala).setMemberAdjustedAmount(String.valueOf(newAmount));
                 lenewala++;
-            }else if(lenevalaAmount.compareTo(denevalaAmount) == 0){
-                subAmount  = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
-                lenewala++;
-                denewala++;
             }
             totalAmount = totalAmount.subtract(subAmount);
         }
@@ -113,8 +121,9 @@ public class SattlementActivity extends AppCompatActivity {
             if(BigDecimal.ZERO.compareTo(memberAdjustedAmount) < 0){
                 denevaloKiList.add(mMemberItemsArrayList.get(i));
             }else if(BigDecimal.ZERO.compareTo(memberAdjustedAmount) > 0){
+                mMemberItemsArrayList.get(i).setMemberAdjustedAmount(mMemberItemsArrayList.get(i).getMemberAdjustedAmount().substring(1));
                 lenevaloKiList.add(mMemberItemsArrayList.get(i));
-                totalAmount = totalAmount.add(memberAdjustedAmount);
+                totalAmount = totalAmount.add(new BigDecimal(memberAdjustedAmount.doubleValue() * -1));
             }else{
                 freeList.add(mMemberItemsArrayList.get(i));
             }
@@ -124,13 +133,14 @@ public class SattlementActivity extends AppCompatActivity {
     private void initComponents() {
         databaseHandler = new DatabaseHandler(this);
         mllDynamicHisab = (LinearLayout) findViewById(R.id.llDynamicHisab);
-        mrlHisab = (RelativeLayout) findViewById(R.id.hisab);
-        tvDenevala = (TextView) findViewById(R.id.tvDenewala);
-        tvLenevala = (TextView) findViewById(R.id.tvLenewala);
-        tvAmount = (TextView) findViewById(R.id.tvAmount);
-        btnsattle = (Button) findViewById(R.id.btnsattle);
-        hisab1 = (RelativeLayout) findViewById(R.id.hisab1);
-        tvAmount1 = (TextView) findViewById(R.id.tvAmount1);
+       // mrlHisab = (RelativeLayout) findViewById(R.id.hisab);
+        //tvDenevala = (TextView) findViewById(R.id.tvDenewala);
+        //tvLenevala = (TextView) findViewById(R.id.tvLenewala);
+        //tvAmount = (TextView) findViewById(R.id.tvAmount);
+        //btnsattle = (Button) findViewById(R.id.btnsattle);
+        //hisab1 = (RelativeLayout) findViewById(R.id.hisab1);
+        //tvAmount1 = (TextView) findViewById(R.id.tvAmount1);
+        ll_container = (LinearLayout) findViewById(R.id.ll_container);
     }
 
     private void setupToolbar() {
@@ -141,4 +151,17 @@ public class SattlementActivity extends AppCompatActivity {
             mToolbar.setTitleTextColor(Color.WHITE);
         }
     }
+
+    private void addView(String denewala,String lenewala,String amount){
+        LayoutInflater layoutInflater =(LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View dynamicView = layoutInflater.inflate(R.layout.settlement_item, null);
+        TextView tvDenewala = (TextView) dynamicView.findViewById(R.id.tvDenewala);
+        TextView tvlenewala = (TextView) dynamicView.findViewById(R.id.tvLenewala);
+        TextView tvAmount = (TextView) dynamicView.findViewById(R.id.tvAmount);
+        tvDenewala.setText(denewala);
+        tvlenewala.setText(lenewala);
+        tvAmount.setText(amount);
+        ll_container.addView(dynamicView);
+    }
+
 }

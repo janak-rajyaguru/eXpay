@@ -12,14 +12,18 @@
         />
 
     <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+   <!-- <LinearLayout
         android:id="@+id/llDynamicHisab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:orientation="vertical">
-
-
-
     <RelativeLayout
         android:id="@+id/hisab"
         android:layout_width="match_parent"
@@ -108,7 +112,7 @@
             android:background="#9AA"
             android:layout_gravity="center"
             />
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </RelativeLayout>
