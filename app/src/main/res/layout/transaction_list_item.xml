@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/imgAvatar"
-            android:src="@drawable/add_icon"
+            android:src="@drawable/expense"
             android:layout_width="30dp"
             android:layout_height="30dp" />
 

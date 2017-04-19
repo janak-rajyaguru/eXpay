@@ -4,12 +4,12 @@
     android:padding="10dp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@color/grey_ddd"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imgAvatar"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/grp"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 

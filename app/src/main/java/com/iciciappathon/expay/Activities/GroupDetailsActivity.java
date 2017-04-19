@@ -46,6 +46,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private Float individualExpense = 0F;
     public static int groupCount = 0;
     private Button btnSattlement;
+    private static int sattlementCount =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +99,12 @@ public class GroupDetailsActivity extends AppCompatActivity {
         btnSattlement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sattlementCount++;
                 Intent sattlementActivityIntent = new Intent(GroupDetailsActivity.this,SattlementActivity.class);
                 sattlementActivityIntent.putExtra("expenseList", mExpenseArrayList);
                 sattlementActivityIntent.putExtra("memberlist",mMemberItemsArrayList);
                 sattlementActivityIntent.putExtra("group",group);
+                sattlementActivityIntent.putExtra("count",sattlementCount);
                 startActivity(sattlementActivityIntent);
             }
         });
