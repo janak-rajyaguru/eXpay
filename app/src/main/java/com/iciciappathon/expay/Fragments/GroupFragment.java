@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.iciciappathon.expay.Activities.CreateGroupActivity;
 import com.iciciappathon.expay.Activities.GroupDetailsActivity;
@@ -40,6 +41,7 @@ public class GroupFragment extends Fragment{
     private Group groupItem = null;
     private Context mContext = null;
     DatabaseHandler databaseHandler;
+    TextView txtGroupTitle = null;
     Cursor cursor;
 
     @Override
@@ -81,11 +83,15 @@ public class GroupFragment extends Fragment{
 
     public void setDataToGroups(){
         mGroupItemsArrayList = (ArrayList<Group>) databaseHandler.getAllGroups();
+        if(mGroupItemsArrayList.size() >0){
+            txtGroupTitle.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initializeUiElements(View view) {
         databaseHandler = new DatabaseHandler(mContext);
         mBtnCreateGroup = (FloatingActionButton) view.findViewById(R.id.btn_create_group);
         mGroupListView = (ListView) view.findViewById(R.id.lv_grouplistView);
+        txtGroupTitle = (TextView) view.findViewById(R.id.txtGroup);
     }
 }
