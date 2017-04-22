@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iciciappathon.expay">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".Framework.ExPay"
         android:allowBackup="true"
