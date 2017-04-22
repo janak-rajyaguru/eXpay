@@ -57,6 +57,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         GroupMemberListItem selfMember = new GroupMemberListItem();
         selfMember.setName("Nitesh");
         selfMember.setVPA_Id("nitesh@axisbank");
+        selfMember.setMemberAmount("0");
         listItemArrayList.add(firstMember);
         listItemArrayList.add(selfMember);
        /* try {
@@ -94,6 +95,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Group group = new Group(String.valueOf(maxGId),etGroupName.getText().toString().trim());
                 databaseHandler.addGroup(group);
                 for (GroupMemberListItem member:listItemArrayList){
+                    if(member.getVPA_Id() != null & !member.getVPA_Id().equals(""))
                     member.setGroupId(String.valueOf(maxGId));
                     databaseHandler.addMember(member);
                 }
