@@ -57,6 +57,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         GroupMemberListItem selfMember = new GroupMemberListItem();
         selfMember.setName("Nitesh");
         selfMember.setVPA_Id("nitesh@axisbank");
+        selfMember.setIsMainMember(1);
         selfMember.setMemberAmount("0");
         listItemArrayList.add(firstMember);
         listItemArrayList.add(selfMember);

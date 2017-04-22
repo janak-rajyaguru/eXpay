@@ -1,13 +1,20 @@
 package com.iciciappathon.expay.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -16,11 +23,14 @@ import android.widget.Toast;
 
 import com.iciciappathon.expay.Adapters.SettlementAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.Fragments.settlePayment;
 import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.POJOBeans.Settlement;
 import com.iciciappathon.expay.R;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -37,11 +47,16 @@ public class SattlementActivity extends AppCompatActivity {
     private Group group;
     ListView lvSettlement;
     private SettlementAdapter settlementAdapter;
+    private LinearLayout llSettlepaymet;
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     private ArrayList<GroupMemberListItem> denevaloKiList = new ArrayList<>();
     private ArrayList<GroupMemberListItem> lenevaloKiList = new ArrayList<>();
     private ArrayList<GroupMemberListItem> freeList = new ArrayList<>();
+
+    /*private TextView tvDebtorVPA,tvAmount;
+    private EditText etCreditorVPA;*/
+    private Button btnSettlepayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +87,48 @@ public class SattlementActivity extends AppCompatActivity {
         settlementAdapter = new SettlementAdapter(this,settlementsList);
         lvSettlement.setAdapter(settlementAdapter);
 
-        /*btnsattle.setOnClickListener(new View.OnClickListener() {
+        lvSettlement.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(SattlementActivity.this, "Request for money has been sent", Toast.LENGTH_SHORT).show();
-                Intent home = new Intent(SattlementActivity.this,HomeActivity.class);
-                startActivity(home);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Settlement settlement = settlementsList.get(position);
+                if(settlement.getDenewala().getIsMainMember() == 1){
+                    llSettlepaymet.setVisibility(View.GONE);
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SattlementActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.fragment_settle_payment,null);
+                    dialogBuilder.setView(dialogView);
+
+                    TextView tvDebtorVPA = (TextView) dialogView.findViewById(R.id.tv_debtorVPA);
+                    TextView tvAmount = (TextView) dialogView.findViewById(R.id.et_amount);
+                    EditText etCreditorVPA = (EditText) dialogView.findViewById(R.id.et_creditor);
+                    Button btnSettlepayment = (Button) dialogView.findViewById(R.id.btnsattle);
+
+                    tvDebtorVPA.setText("Your UPI : " + settlement.getDenewala().getVPA_Id());
+                    tvAmount.setText(settlement.getAmount()+ " ₹");
+                    etCreditorVPA.setText(settlement.getLenewala().getVPA_Id());
+
+                    AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(SattlementActivity.this);
+                    builder.setTitle("Reminder");
+                    builder.setMessage("Do you want to send reminder to " + settlement.getDenewala().getName()  + " for send " + settlement.getAmount() + " Rs. to " + settlement.getLenewala().getName() + ".");
+                    builder.setPositiveButton("Remind", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
             }
-        });*/
+        });
     }
 
     private void DoMaathAndUpdateUi() {
@@ -142,6 +191,11 @@ public class SattlementActivity extends AppCompatActivity {
     private void initComponents() {
         databaseHandler = new DatabaseHandler(this);
         lvSettlement = (ListView) findViewById(R.id.lv_settlement);
+        llSettlepaymet = (LinearLayout) findViewById(R.id.ll_settle_payment);
+        /*tvDebtorVPA = (TextView) findViewById(R.id.tv_debtorVPA);
+        tvAmount = (TextView) findViewById(R.id.tv_amount);
+        etCreditorVPA = (EditText) findViewById(R.id.et_creditorVPA);*/
+        btnSettlepayment = (Button) findViewById(R.id.btnSettle);
     }
 
     private void setupToolbar() {
@@ -166,3 +220,5 @@ public class SattlementActivity extends AppCompatActivity {
     }*/
 
 }
+
+

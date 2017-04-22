@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_ddd"
+    android:layout_margin="16dp"
+    tools:context="com.iciciappathon.expay.Fragments.settlePayment">
+
+    <LinearLayout
+        android:id="@+id/settleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_debtorVPA"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Debtor VPA : DebtorVPA"
+            android:textSize="15dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creditor UPI :"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/et_creditor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="test@icici"
+                android:textSize="15dp"
+                android:textAlignment="textStart"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount :"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/et_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1000.00"
+                android:textSize="15dp"
+                android:textAlignment="textStart"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnsattle"
+            android:elevation="3dp"
+            android:theme="@style/MyButton"
+            android:layout_gravity="right"
+            android:layout_below="@+id/ll_container"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTLE"
+            android:textAllCaps="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+</FrameLayout>
