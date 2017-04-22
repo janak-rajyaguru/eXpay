@@ -69,7 +69,7 @@ public class DatabaseConstants {
                 + MEMBER_NAME + " TEXT "
                 + ")";
 
-        public static final String SELECT_ALL = "SELECT * FROM " + TABLE_EXPENSE;
+        public static final String SELECT_ALL = "SELECT * FROM " + TABLE_EXPENSE + " ORDER BY EXPENSE_ID DESC";
 
         public static final String SELECT_ALL_FROM_GROUP = "SELECT * FROM " + TABLE_EXPENSE + " WHERE " + GROUP_ID + " = ";
     }

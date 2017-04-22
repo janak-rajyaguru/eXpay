@@ -11,12 +11,35 @@
         android:id="@+id/toolbar"
         />
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/lv_settlement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"/>
+
+    <!--<LinearLayout
         android:id="@+id/ll_container"
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"/>
+
+    <Button
+        android:id="@+id/btnsattle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay"
+        android:layout_below="@+id/ll_container"
+        android:layout_centerInParent="true"
+        android:background="#9AA"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        />-->
 
    <!-- <LinearLayout
         android:id="@+id/llDynamicHisab"
