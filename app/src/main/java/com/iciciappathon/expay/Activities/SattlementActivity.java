@@ -9,14 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iciciappathon.expay.Adapters.SettlementAdapter;
 import com.iciciappathon.expay.Database.DatabaseHandler;
 import com.iciciappathon.expay.POJOBeans.Expense;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
+import com.iciciappathon.expay.POJOBeans.Settlement;
 import com.iciciappathon.expay.R;
 
 import java.lang.reflect.Array;
@@ -27,15 +30,13 @@ import java.util.ArrayList;
 public class SattlementActivity extends AppCompatActivity {
 
     private ArrayList<GroupMemberListItem> mMemberItemsArrayList = new ArrayList<>();
+    ArrayList<Settlement> settlementsList = new ArrayList<>();
     private ArrayList<Expense> mExpenseArrayList = new ArrayList<>();
     private Toolbar mToolbar;
     private DatabaseHandler databaseHandler;
     private Group group;
-    private LinearLayout mllDynamicHisab,ll_container;
-    private RelativeLayout mrlHisab,hisab1;
-    private TextView tvDenevala,tvLenevala,tvAmount,tvAmount1;
-    private Button btnsattle;
-    //private int count;
+    ListView lvSettlement;
+    private SettlementAdapter settlementAdapter;
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     private ArrayList<GroupMemberListItem> denevaloKiList = new ArrayList<>();
@@ -60,12 +61,16 @@ public class SattlementActivity extends AppCompatActivity {
         initComponents();
 
         adjustMemberAmount();
-        DoMaathAndUpdateUi();
+        try {
+            DoMaathAndUpdateUi();
+        }catch (NumberFormatException ne){
+            ne.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        /*if(count > 1){
-            mrlHisab.setVisibility(View.GONE);
-            tvAmount1.setText("30 Rs.");
-        }*/
+        settlementAdapter = new SettlementAdapter(this,settlementsList);
+        lvSettlement.setAdapter(settlementAdapter);
 
         /*btnsattle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +84,7 @@ public class SattlementActivity extends AppCompatActivity {
 
     private void DoMaathAndUpdateUi() {
         int denewala=0,lenewala=0;
-        while(totalAmount.floatValue() > 0){
+        while(totalAmount.floatValue() > 0 && denevaloKiList.size() > denewala && lenevaloKiList.size() > lenewala && denevaloKiList.get(denewala)!=null && lenevaloKiList.get(lenewala)!=null){
             BigDecimal denevalaAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
             BigDecimal lenevalaAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount());
             BigDecimal subAmount = new BigDecimal(BigInteger.ZERO);
@@ -89,23 +94,27 @@ public class SattlementActivity extends AppCompatActivity {
 
             if(lenevalaAmount.compareTo(denevalaAmount) == 0){
                 subAmount  = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
-                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                //addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                settlementsList.add(new Settlement(denevaloKiList.get(denewala),lenevaloKiList.get(lenewala),String.valueOf(subAmount.setScale(2,BigDecimal.ROUND_DOWN))));
                 lenewala++;
                 denewala++;
             }else if(lenevalaAmount.compareTo(denevalaAmount) > 0 ){
                 subAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
                 BigDecimal newAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount()).subtract(subAmount);
-                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                //addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
                 lenevaloKiList.get(lenewala).setMemberAdjustedAmount(String.valueOf(newAmount));
+                settlementsList.add(new Settlement(denevaloKiList.get(denewala),lenevaloKiList.get(lenewala),String.valueOf(subAmount.setScale(2,BigDecimal.ROUND_DOWN))));
                 denewala++;
             }else if (lenevalaAmount.compareTo(denevalaAmount) < 0){
                 subAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount());
                 BigDecimal newAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount()).subtract(subAmount);
-                addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
+                //addView(denevaloKiList.get(denewala).getName(),lenevaloKiList.get(lenewala).getName(),String.valueOf(subAmount));
                 denevaloKiList.get(denewala).setMemberAdjustedAmount(String.valueOf(newAmount));
+                settlementsList.add(new Settlement(denevaloKiList.get(denewala),lenevaloKiList.get(lenewala),String.valueOf(subAmount.setScale(2,BigDecimal.ROUND_DOWN))));
                 lenewala++;
             }
             totalAmount = totalAmount.subtract(subAmount);
+            totalAmount.setScale(2,BigDecimal.ROUND_DOWN);
         }
     }
 
@@ -132,15 +141,7 @@ public class SattlementActivity extends AppCompatActivity {
 
     private void initComponents() {
         databaseHandler = new DatabaseHandler(this);
-        mllDynamicHisab = (LinearLayout) findViewById(R.id.llDynamicHisab);
-       // mrlHisab = (RelativeLayout) findViewById(R.id.hisab);
-        //tvDenevala = (TextView) findViewById(R.id.tvDenewala);
-        //tvLenevala = (TextView) findViewById(R.id.tvLenewala);
-        //tvAmount = (TextView) findViewById(R.id.tvAmount);
-        //btnsattle = (Button) findViewById(R.id.btnsattle);
-        //hisab1 = (RelativeLayout) findViewById(R.id.hisab1);
-        //tvAmount1 = (TextView) findViewById(R.id.tvAmount1);
-        ll_container = (LinearLayout) findViewById(R.id.ll_container);
+        lvSettlement = (ListView) findViewById(R.id.lv_settlement);
     }
 
     private void setupToolbar() {
@@ -152,7 +153,7 @@ public class SattlementActivity extends AppCompatActivity {
         }
     }
 
-    private void addView(String denewala,String lenewala,String amount){
+   /* private void addView(String denewala,String lenewala,String amount){
         LayoutInflater layoutInflater =(LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View dynamicView = layoutInflater.inflate(R.layout.settlement_item, null);
         TextView tvDenewala = (TextView) dynamicView.findViewById(R.id.tvDenewala);
@@ -162,6 +163,6 @@ public class SattlementActivity extends AppCompatActivity {
         tvlenewala.setText(lenewala);
         tvAmount.setText(amount);
         ll_container.addView(dynamicView);
-    }
+    }*/
 
 }

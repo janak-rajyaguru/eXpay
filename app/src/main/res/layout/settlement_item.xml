@@ -14,27 +14,30 @@
         <TextView
             android:id="@+id/tvDenewala"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Chinmay"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textSize="25dp"/>
+            android:textSize="20dp"/>
 
         <ImageView
             android:id="@+id/aero"
             android:layout_toRightOf="@+id/tvDenewala"
             android:src="@drawable/aero"
             android:layout_centerVertical="true"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_height="match_parent"
             />
         <TextView
             android:id="@+id/tvLenewala"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/aero"
             android:layout_centerVertical="true"
             android:text="Hiren"
-            android:textSize="25dp"/>
+            android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/tvAmount"
@@ -43,7 +46,7 @@
             android:layout_alignParentRight="true"
             android:text="10 Rs."
             android:layout_centerVertical="true"
-            android:textSize="25dp"/>
+            android:textSize="20dp"/>
             />
     </RelativeLayout>
 
