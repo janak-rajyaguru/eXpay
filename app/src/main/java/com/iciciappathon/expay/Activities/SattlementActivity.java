@@ -60,8 +60,13 @@ public class SattlementActivity extends AppCompatActivity {
         initComponents();
 
         adjustMemberAmount();
-        DoMaathAndUpdateUi();
-
+        try {
+            DoMaathAndUpdateUi();
+        }catch (NumberFormatException ne){
+            ne.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         /*if(count > 1){
             mrlHisab.setVisibility(View.GONE);
             tvAmount1.setText("30 Rs.");
@@ -79,7 +84,7 @@ public class SattlementActivity extends AppCompatActivity {
 
     private void DoMaathAndUpdateUi() {
         int denewala=0,lenewala=0;
-        while(totalAmount.floatValue() > 0){
+        while(totalAmount.floatValue() > 0 && denevaloKiList.size() > denewala && lenevaloKiList.size() > lenewala && denevaloKiList.get(denewala)!=null && lenevaloKiList.get(lenewala)!=null){
             BigDecimal denevalaAmount = new BigDecimal(denevaloKiList.get(denewala).getMemberAdjustedAmount());
             BigDecimal lenevalaAmount = new BigDecimal(lenevaloKiList.get(lenewala).getMemberAdjustedAmount());
             BigDecimal subAmount = new BigDecimal(BigInteger.ZERO);
@@ -106,6 +111,7 @@ public class SattlementActivity extends AppCompatActivity {
                 lenewala++;
             }
             totalAmount = totalAmount.subtract(subAmount);
+            totalAmount.setScale(2,BigDecimal.ROUND_DOWN);
         }
     }
 
