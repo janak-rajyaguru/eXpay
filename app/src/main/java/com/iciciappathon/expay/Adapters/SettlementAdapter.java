@@ -53,6 +53,7 @@ public class SettlementAdapter extends BaseAdapter {
             viewHolder.tvDenewala = (TextView) convertView.findViewById(R.id.tvDenewala);
             viewHolder.tvLenewala = (TextView) convertView.findViewById(R.id.tvLenewala);
             viewHolder.tvAmount = (TextView) convertView.findViewById(R.id.tvAmount);
+            convertView.setTag(viewHolder);
         }else{
             viewHolder = (SettlementAdapter.ViewHolder) convertView.getTag();
         }
@@ -61,7 +62,7 @@ public class SettlementAdapter extends BaseAdapter {
         if(mSettlement!=null && mSettlement.getDenewala()!=null && mSettlement.getLenewala()!=null) {
             if(mSettlement.getDenewala().getName().toString()!=null ) {viewHolder.tvDenewala.setText(mSettlement.getDenewala().getName().toString());}
             if(mSettlement.getLenewala().getName().toString()!=null ) {viewHolder.tvLenewala.setText(mSettlement.getLenewala().getName().toString());}
-            if(mSettlement.getAmount().toString()!=null){viewHolder.tvAmount.setText(mSettlement.getAmount().toString());}
+            if(mSettlement.getAmount().toString()!=null){viewHolder.tvAmount.setText(mSettlement.getAmount().toString() + " ₹");}
         }
 
         return convertView;
