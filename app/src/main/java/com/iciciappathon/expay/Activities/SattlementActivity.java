@@ -60,6 +60,7 @@ public class SattlementActivity extends AppCompatActivity {
     /*private TextView tvDebtorVPA,tvAmount;
     private EditText etCreditorVPA;*/
     private Button btnSettlepayment;
+    private int clickPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +93,10 @@ public class SattlementActivity extends AppCompatActivity {
 
         lvSettlement.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 final Settlement settlement = settlementsList.get(position);
                 if(settlement.getDenewala().getIsMainMember() == 1){
+                    clickPosition = position;
                     llSettlepaymet.setVisibility(View.GONE);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SattlementActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -128,6 +130,8 @@ public class SattlementActivity extends AppCompatActivity {
                             /*Float balance = Float.valueOf((String) mDataCache.get(Constants.BALANCE));
                             Float amountSettle = Float.valueOf(settlement.getAmount());
                             mDataCache.put(Constants.BALANCE, balance - amountSettle);*/
+                            settlementsList.remove(position);
+                            settlementAdapter.notifyDataSetChanged();
                             alertDialog.dismiss();
                             Toast.makeText(SattlementActivity.this, "You have settled amount " +settlement.getAmount()+ " ₹"+
                                      " with "+settlement.getLenewala().getName() , Toast.LENGTH_SHORT).show();
@@ -141,7 +145,7 @@ public class SattlementActivity extends AppCompatActivity {
                     builder.setMessage("Do you want to send reminder to " + settlement.getDenewala().getName()  + " for send " + settlement.getAmount() + " ₹ to " + settlement.getLenewala().getName() + ".");
                     builder.setPositiveButton("Remind", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-
+                            Toast.makeText(SattlementActivity.this, "Reminder sent", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
