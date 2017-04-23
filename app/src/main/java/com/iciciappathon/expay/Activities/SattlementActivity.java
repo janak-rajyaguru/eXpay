@@ -125,9 +125,9 @@ public class SattlementActivity extends AppCompatActivity {
                     btnSettlepayment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Float balance = Float.valueOf((String) mDataCache.get(Constants.BALANCE));
+                            /*Float balance = Float.valueOf((String) mDataCache.get(Constants.BALANCE));
                             Float amountSettle = Float.valueOf(settlement.getAmount());
-                            mDataCache.put(Constants.BALANCE, balance - amountSettle);
+                            mDataCache.put(Constants.BALANCE, balance - amountSettle);*/
                             alertDialog.dismiss();
                             Toast.makeText(SattlementActivity.this, "You have settled amount " +settlement.getAmount()+ " ₹"+
                                      " with "+settlement.getLenewala().getName() , Toast.LENGTH_SHORT).show();
