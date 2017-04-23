@@ -1,6 +1,5 @@
 package com.iciciappathon.expay.gateway;
 
-import com.iciciappathon.expay.Activities.SplashActivity;
 import com.iciciappathon.expay.Constants.Constants;
 
 import java.util.List;
@@ -13,23 +12,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.iciciappathon.expay.Framework.ExPay.mDataCache;
 
-/**
- * Created by ADMIN on 22/04/2017.
- */
-
 public class Server {
 
     private static Server mInstance;
-    private static Retrofit.Builder retrofit_builder = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit.Builder retrofit_builder;
 
     private Server() {
 
     }
 
-    public static Server getmInstance() {
+    public static Server getInstance() {
         if (mInstance == null) {
             mInstance = new Server();
+            retrofit_builder = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create());
         }
         return mInstance;
     }
