@@ -80,9 +80,9 @@ public class MembersListAdapter extends BaseAdapter {
 
     private void setAvatar(ImageView imageView, String name){
         GradientDrawable gradientDrawable = new GradientDrawable();
-        int sum = 12;
+        int sum = 20;
         int color = sum % name.length();
-        Integer[] avatarBck =  { R.color.green, R.color.red, R.color.blue, R.color.purple, R.color.yellow};
+        Integer[] avatarBck =  { R.color.blue, R.color.purple, R.color.green, R.color.red, R.color.yellow};
         gradientDrawable.setColor(avatarBck[color]);
         imageView.setBackground(gradientDrawable);
     }
