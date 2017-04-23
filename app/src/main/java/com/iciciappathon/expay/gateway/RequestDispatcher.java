@@ -21,4 +21,7 @@ public interface RequestDispatcher {
     @GET("/banking/icicibank/account_summary?")
     public Call<List<ResponseData>> getAccountDetails(@Query("client_id") String participant_id, @Query("token") String token,
                                                       @Query("custid") String custid, @Query("accountno") String accountno);
+
+    public Call<List<ResponseData>> getBalanceDetails(@Query("client_id") String participant_id, @Query("token") String token,
+                                                      @Query("custid") String custid, @Query("accountno") String accountno);
 }

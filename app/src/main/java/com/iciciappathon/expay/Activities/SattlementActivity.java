@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iciciappathon.expay.Adapters.SettlementAdapter;
+import com.iciciappathon.expay.Constants.Constants;
 import com.iciciappathon.expay.Database.DatabaseHandler;
 import com.iciciappathon.expay.Fragments.settlePayment;
 import com.iciciappathon.expay.POJOBeans.Expense;
@@ -36,6 +37,8 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+
+import static com.iciciappathon.expay.Framework.ExPay.mDataCache;
 
 public class SattlementActivity extends AppCompatActivity {
 
@@ -90,29 +93,52 @@ public class SattlementActivity extends AppCompatActivity {
         lvSettlement.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Settlement settlement = settlementsList.get(position);
+                final Settlement settlement = settlementsList.get(position);
                 if(settlement.getDenewala().getIsMainMember() == 1){
                     llSettlepaymet.setVisibility(View.GONE);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SattlementActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.fragment_settle_payment,null);
+                    final View dialogView = inflater.inflate(R.layout.fragment_settle_payment,null);
                     dialogBuilder.setView(dialogView);
 
                     TextView tvDebtorVPA = (TextView) dialogView.findViewById(R.id.tv_debtorVPA);
                     TextView tvAmount = (TextView) dialogView.findViewById(R.id.et_amount);
                     EditText etCreditorVPA = (EditText) dialogView.findViewById(R.id.et_creditor);
                     Button btnSettlepayment = (Button) dialogView.findViewById(R.id.btnsattle);
+                    Button btnCancel = (Button) dialogView.findViewById(R.id.btnCancel);
 
                     tvDebtorVPA.setText("Your UPI : " + settlement.getDenewala().getVPA_Id());
                     tvAmount.setText(settlement.getAmount()+ " ₹");
                     etCreditorVPA.setText(settlement.getLenewala().getVPA_Id());
+                    etCreditorVPA.setSelection(etCreditorVPA.getText().length());
 
-                    AlertDialog alertDialog = dialogBuilder.create();
+                    final AlertDialog alertDialog = dialogBuilder.create();
                     alertDialog.show();
+
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    btnSettlepayment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Float balance = Float.valueOf((String) mDataCache.get(Constants.BALANCE));
+                            Float amountSettle = Float.valueOf(settlement.getAmount());
+                            mDataCache.put(Constants.BALANCE, balance - amountSettle);
+                            alertDialog.dismiss();
+                            Toast.makeText(SattlementActivity.this, "You have settled amount " +settlement.getAmount()+ " ₹"+
+                                     " with "+settlement.getLenewala().getName() , Toast.LENGTH_SHORT).show();
+                           /* Intent intent = new Intent(SattlementActivity.this, HomeActivity.class);
+                            startActivity(intent);*/
+                        }
+                    });
                 }else{
                     final AlertDialog.Builder builder = new AlertDialog.Builder(SattlementActivity.this);
                     builder.setTitle("Reminder");
-                    builder.setMessage("Do you want to send reminder to " + settlement.getDenewala().getName()  + " for send " + settlement.getAmount() + " Rs. to " + settlement.getLenewala().getName() + ".");
+                    builder.setMessage("Do you want to send reminder to " + settlement.getDenewala().getName()  + " for send " + settlement.getAmount() + " ₹ to " + settlement.getLenewala().getName() + ".");
                     builder.setPositiveButton("Remind", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 

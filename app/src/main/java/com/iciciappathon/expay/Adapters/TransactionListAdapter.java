@@ -69,7 +69,7 @@ public class TransactionListAdapter extends BaseAdapter {
         transaction = mTransactionlistItemArrayList.get(position);
         if(transaction !=null && !transaction.getExpenseDesc().equals(null) && !transaction.getExpenseAmount().equals(null) && !transaction.getGroupName().equals(null)) {
             viewHolder.txtTranDesc.setText(transaction.getExpenseDesc());
-            viewHolder.txtTransAmount.setText(transaction.getExpenseAmount());
+            viewHolder.txtTransAmount.setText(transaction.getExpenseAmount()+ " ₹");
             viewHolder.txtTransGroupName.setText(transaction.getGroupName());
             setAvatar(viewHolder.imgAvatar, viewHolder.txtAvatar, transaction.getExpenseAmount(), transaction.getExpenseDesc());
         }

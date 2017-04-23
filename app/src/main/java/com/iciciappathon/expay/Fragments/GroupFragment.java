@@ -19,14 +19,18 @@ import android.widget.TextView;
 import com.iciciappathon.expay.Activities.CreateGroupActivity;
 import com.iciciappathon.expay.Activities.GroupDetailsActivity;
 import com.iciciappathon.expay.Adapters.GroupsAdapter;
+import com.iciciappathon.expay.Constants.Constants;
 import com.iciciappathon.expay.Constants.DatabaseConstants;
 import com.iciciappathon.expay.Database.DatabaseHandler;
+import com.iciciappathon.expay.Framework.ExPay;
 import com.iciciappathon.expay.POJOBeans.Contact;
 import com.iciciappathon.expay.POJOBeans.Group;
 import com.iciciappathon.expay.POJOBeans.GroupMemberListItem;
 import com.iciciappathon.expay.R;
 
 import java.util.ArrayList;
+
+import static com.iciciappathon.expay.Framework.ExPay.mDataCache;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +47,9 @@ public class GroupFragment extends Fragment{
     DatabaseHandler databaseHandler;
     TextView txtGroupTitle = null;
     Cursor cursor;
+    private TextView userName = null;
+    private TextView userVPAId = null;
+    private TextView userBalance = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,5 +100,10 @@ public class GroupFragment extends Fragment{
         mBtnCreateGroup = (FloatingActionButton) view.findViewById(R.id.btn_create_group);
         mGroupListView = (ListView) view.findViewById(R.id.lv_grouplistView);
         txtGroupTitle = (TextView) view.findViewById(R.id.txtGroup);
+        userName = (TextView) view.findViewById(R.id.txtUserName);
+        userVPAId = (TextView) view.findViewById(R.id.txtUserVPAId);
+        userBalance = (TextView) view.findViewById(R.id.txtUserBalance);
+        userBalance.setText((String) mDataCache.get(Constants.BALANCE)+ " ₹");
+
     }
 }

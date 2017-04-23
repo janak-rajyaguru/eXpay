@@ -72,16 +72,14 @@ public class GroupMemberListAdapter extends BaseAdapter {
             viewHolder.txtName.setPadding(120,0,0,0);
             viewHolder.txtVpa.setVisibility(View.GONE);
             viewHolder.imgAvatar.setVisibility(View.GONE);
-            viewHolder.llAmount.setVisibility(View.GONE);
         } else {
             viewHolder.txtName.setText(listItem.getName());
             viewHolder.txtVpa.setText(listItem.getVPA_Id());
             viewHolder.txtVpa.setVisibility(View.VISIBLE);
             viewHolder.imgAvatar.setVisibility(View.VISIBLE);
             setAvatar(viewHolder.imgAvatar, listItem.getName());
-            viewHolder.llAmount.setVisibility(View.VISIBLE);
-
         }
+        viewHolder.llAmount.setVisibility(View.GONE);
         return view;
     }
 

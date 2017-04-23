@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.iciciappathon.expay.Constants.Constants;
+import com.iciciappathon.expay.Framework.ExPay;
 import com.iciciappathon.expay.R;
 import com.iciciappathon.expay.gateway.ResponseData;
 import com.iciciappathon.expay.gateway.Server;
@@ -12,9 +13,9 @@ import com.iciciappathon.expay.gateway.Server;
 import java.util.HashMap;
 import java.util.List;
 
-public class SplashActivity extends AppCompatActivity implements Server.ServerOperationCompletion {
+import static com.iciciappathon.expay.Framework.ExPay.mDataCache;
 
-    public static HashMap<String, Object> mDataCache = new HashMap<String, Object>();
+public class SplashActivity extends AppCompatActivity implements Server.ServerOperationCompletion {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,14 @@ public class SplashActivity extends AppCompatActivity implements Server.ServerOp
     public void onResponseReceived(List<ResponseData> responseData) {
 
         if (responseData != null && responseData.size() > 0) {
-            mDataCache.put(Constants.ACCESS_TOKEN, responseData.get(0).getAccess_token());
-            moveToNextScreen();
+            if(responseData.get(0).getAccess_token() != null) {
+                mDataCache.put(Constants.ACCESS_TOKEN, responseData.get(0).getAccess_token());
+                Server.getmInstance().callOperation(Constants.GET_ACCOUNT_DETAILS, this, null);
+            } else {
+                mDataCache.put(Constants.BALANCE, responseData.get(1).getAccountBalance());
+                moveToNextScreen();
+            }
+
         }
     }
 

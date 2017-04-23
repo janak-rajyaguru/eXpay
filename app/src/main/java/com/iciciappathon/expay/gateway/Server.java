@@ -11,6 +11,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.iciciappathon.expay.Framework.ExPay.mDataCache;
+
 /**
  * Created by ADMIN on 22/04/2017.
  */
@@ -44,7 +46,7 @@ public class Server {
         } else if (url.equals(Constants.GET_ACCOUNT_DETAILS)) {
 
             call = dispatcher.getAccountDetails(Constants.PARTICIPANT_ID,
-                    (String) SplashActivity.mDataCache.get(Constants.ACCESS_TOKEN), Constants.CUSTOMER_ID, Constants.ACCOUNT_NUMBER);
+                    (String) mDataCache.get(Constants.ACCESS_TOKEN), Constants.CUSTOMER_ID, Constants.ACCOUNT_NUMBER);
         }
 
         call.enqueue(new Callback<List<ResponseData>>() {

@@ -66,7 +66,7 @@ public class MembersListAdapter extends BaseAdapter {
         if(!memberListItem.getName().equals("") && !memberListItem.getVPA_Id().equals("")) {
             viewHolder.txtName.setText(memberListItem.getName());
             viewHolder.txtVpa.setText(memberListItem.getVPA_Id());
-            viewHolder.txtMemberAmount.setText(memberListItem.getMemberAmount());
+            viewHolder.txtMemberAmount.setText(memberListItem.getMemberAmount()+ " ₹");
             viewHolder.txtVpa.setVisibility(View.VISIBLE);
             setAvatar(viewHolder.imgAvatar, memberListItem.getName());
         }
