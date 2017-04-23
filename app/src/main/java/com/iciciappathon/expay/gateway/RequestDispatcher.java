@@ -1,5 +1,7 @@
 package com.iciciappathon.expay.gateway;
 
+import org.json.JSONArray;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,4 +17,8 @@ public interface RequestDispatcher {
 
     @GET("/corporate_banking/mybank/authenticate_client?")
     public Call<List<ResponseData>> getAccessToken(@Query("client_id") String participant_id, @Query("password") String participant_access_code);
+
+    @GET("/banking/icicibank/account_summary?")
+    public Call<List<ResponseData>> getAccountDetails(@Query("client_id") String participant_id, @Query("token") String token,
+                                                      @Query("custid") String custid, @Query("accountno") String accountno);
 }
