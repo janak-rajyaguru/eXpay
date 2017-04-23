@@ -42,7 +42,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private Toolbar mToolbar;
  //   private Button btnAddMembers;
 
-    private FloatingActionButton btnCreateGroup;
+    private Button btnCreateGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         etGroupName = (EditText) findViewById(R.id.etGroupName);
         listViewMembers = (ListView) findViewById(R.id.memberListViewforCreateGroup);
      //   btnAddMembers = (Button) findViewById(R.id.btn_add_member);
-        btnCreateGroup = (FloatingActionButton) findViewById(R.id.btn_create_group);
+        btnCreateGroup = (Button) findViewById(R.id.btn_create_group);
         databaseHandler = new DatabaseHandler(this);
     }
 
