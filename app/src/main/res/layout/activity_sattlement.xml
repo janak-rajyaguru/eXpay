@@ -13,9 +13,95 @@
 
     <ListView
         android:id="@+id/lv_settlement"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_settle_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_ddd"
+        android:layout_margin="16dp"
+        android:elevation="3dp"
+        android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_debtorVPA"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="Debtor VPA : DebtorVPA"
+                    android:textSize="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Creditor VPA :"
+                        android:textSize="15dp"/>
+                    <EditText
+                        android:id="@+id/et_creditorVPA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="test@icici"
+                        android:textSize="15dp"
+                        android:textAlignment="textStart"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount :"
+                        android:textSize="15dp"/>
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1000.00"
+                        android:textSize="15dp"
+                        android:textAlignment="textStart"
+                        />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSettle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settle"
+                    android:layout_below="@+id/ll_container"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"
+                    />
+
+            </LinearLayout>
+    </LinearLayout>
 
     <!--<LinearLayout
         android:id="@+id/ll_container"

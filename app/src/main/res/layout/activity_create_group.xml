@@ -45,11 +45,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </ListView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#9b9b9b"
-                    />
             </LinearLayout>
            <!-- <Button
                 android:id="@+id/btn_add_member"
@@ -65,14 +60,14 @@
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/btn_create_group"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/circle"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button"
                 android:visibility="gone"
-                android:src="@drawable/ic_add_white"/>
+                android:src="@drawable/ic_group_add_black_24dp"/>
 
        <!-- <LinearLayout
             android:layout_width="match_parent"

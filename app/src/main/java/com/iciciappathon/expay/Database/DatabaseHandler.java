@@ -203,6 +203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_AMOUNT,member.getMemberAmount());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_GROUP_ID, member.getGroupId());
         contentValues.put(DatabaseConstants.MembersTable.MEMBER_EXPENSE_TOTAL, member.getMemberExpenseTotal());
+        contentValues.put(DatabaseConstants.MembersTable.IS_MAIN_MEMBER,member.getIsMainMember());
         db.insert(DatabaseConstants.MembersTable.TABLE_MEMBERS,null,contentValues);
     }
 
@@ -220,6 +221,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 groupMemberListItem.setMemberAmount(cursor.getString(3));
                 groupMemberListItem.setGroupId(cursor.getString(4));
                 groupMemberListItem.setMemberExpenseTotal(cursor.getString(5));
+                groupMemberListItem.setIsMainMember((cursor.getInt(6)));
                 memberList.add(groupMemberListItem);
             } while (cursor.moveToNext());
         }

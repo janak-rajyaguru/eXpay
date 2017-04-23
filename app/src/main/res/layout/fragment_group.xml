@@ -6,8 +6,72 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding ="10dp"
+            android:id="@+id/llBalance"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:textColor="#508eaf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nitesh Kumar"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/txtUserVPAId"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:textColor="#9b9b9b"
+                android:layout_height="wrap_content"
+                android:text="nitesh@axisbank"
+                android:textSize="14dp"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#9b9b9b"
+                android:textSize="40dp"
+                android:layout_marginTop="9dp"
+                android:gravity="right"
+                android:text="0.00"/>
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtGroup"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/llBalance"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:visibility="gone"
+            android:background="@color/grey_ddd"
+            android:text="Groups"/>
+
         <ListView
             android:id="@+id/lv_grouplistView"
+            android:layout_below="@+id/txtGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

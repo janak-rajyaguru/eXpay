@@ -18,6 +18,7 @@ public class GroupMemberListItem implements Serializable {
     private String memberIFSC;
     private String memberExpenseTotal;
     private String memberAdjustedAmount;
+    private int isMainMember = 0;
 
     boolean isTitle = false;
 
@@ -140,5 +141,13 @@ public class GroupMemberListItem implements Serializable {
 
     public void setMemberAdjustedAmount(String memberAdjustedAmount) {
         this.memberAdjustedAmount = memberAdjustedAmount;
+    }
+
+    public int getIsMainMember() {
+        return isMainMember;
+    }
+
+    public void setIsMainMember(int isMainMember) {
+        this.isMainMember = isMainMember;
     }
 }

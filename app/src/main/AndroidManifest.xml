@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CreateGroupActivity" />
+        <activity android:name=".Activities.CreateGroupActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.GroupDetailsActivity" />
         <activity android:name=".Activities.AddDetailsActivity" />

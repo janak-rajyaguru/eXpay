@@ -8,5 +8,14 @@
     <color name="colorAccent">#D3DD</color>
     <color name="grey_ddd">#DDD</color>
 
+
+
+
+    <color name="green">#368c50</color>
+    <color name="yellow">#def209</color>
+    <color name="blue">#4e38e0</color>
+    <color name="red">#b7421b</color>
+    <color name="purple">#4e6899</color>
+
     <color name="white">#FFFFFF</color>
 </resources>

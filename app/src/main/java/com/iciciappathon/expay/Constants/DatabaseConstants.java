@@ -30,6 +30,7 @@ public class DatabaseConstants {
         public static final String MEMBER_AMOUNT = "MEMBER_AMOUNT";
         public static final String MEMBER_GROUP_ID = "GROUP_ID";
         public static final String MEMBER_EXPENSE_TOTAL = "MEMBER_EXPENSE_TOTAL";
+        public static final String IS_MAIN_MEMBER = "IS_MAIN_MEMBER";
 
         public static final String CREATE_TABLE = " CREATE TABLE " + TABLE_MEMBERS
                 + "("
@@ -38,7 +39,8 @@ public class DatabaseConstants {
                 + MEMBER_UPI + " TEXT , "
                 + MEMBER_AMOUNT + " TEXT , "
                 + MEMBER_GROUP_ID + " TEXT , "
-                + MEMBER_EXPENSE_TOTAL + " TEXT "
+                + MEMBER_EXPENSE_TOTAL + " TEXT , "
+                + IS_MAIN_MEMBER + " INTEGER "
                 + ")";
 
         public static final String SELECT_ALL = "SELECT * FROM " + TABLE_MEMBERS;

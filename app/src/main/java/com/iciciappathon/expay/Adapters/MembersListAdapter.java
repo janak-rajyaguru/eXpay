@@ -1,6 +1,7 @@
 package com.iciciappathon.expay.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class MembersListAdapter extends BaseAdapter {
             viewHolder.txtVpa.setText(memberListItem.getVPA_Id());
             viewHolder.txtMemberAmount.setText(memberListItem.getMemberAmount());
             viewHolder.txtVpa.setVisibility(View.VISIBLE);
+            setAvatar(viewHolder.imgAvatar, memberListItem.getName());
         }
         return view;
     }
@@ -74,5 +76,14 @@ public class MembersListAdapter extends BaseAdapter {
     public class ViewHolder{
         ImageView imgAvatar;
         TextView txtName, txtVpa, txtMemberAmount;
+    }
+
+    private void setAvatar(ImageView imageView, String name){
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        int sum = 12;
+        int color = sum % name.length();
+        Integer[] avatarBck =  { R.color.green, R.color.red, R.color.blue, R.color.purple, R.color.yellow};
+        gradientDrawable.setColor(avatarBck[color]);
+        imageView.setBackground(gradientDrawable);
     }
 }

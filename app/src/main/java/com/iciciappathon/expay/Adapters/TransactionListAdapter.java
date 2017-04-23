@@ -1,6 +1,9 @@
 package com.iciciappathon.expay.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +60,7 @@ public class TransactionListAdapter extends BaseAdapter {
             viewHolder.txtTranDesc = (TextView) view.findViewById(R.id.txtTransactionDesc);
             viewHolder.txtTransAmount = (TextView) view.findViewById(R.id.txtTranAmount);
             viewHolder.txtTransGroupName = (TextView) view.findViewById(R.id.txtExpenseGroupname);
+            viewHolder.txtAvatar = (TextView) view.findViewById(R.id.txtAvatar);
             view.setTag(viewHolder);
         } else {
             viewHolder = (TransactionListAdapter.ViewHolder) view.getTag();
@@ -67,13 +71,31 @@ public class TransactionListAdapter extends BaseAdapter {
             viewHolder.txtTranDesc.setText(transaction.getExpenseDesc());
             viewHolder.txtTransAmount.setText(transaction.getExpenseAmount());
             viewHolder.txtTransGroupName.setText(transaction.getGroupName());
+            setAvatar(viewHolder.imgAvatar, viewHolder.txtAvatar, transaction.getExpenseAmount(), transaction.getExpenseDesc());
         }
+
         return view;
     }
 
     public class ViewHolder{
         ImageView imgAvatar;
-        TextView txtTranDesc, txtTransAmount, txtTransGroupName;
+        TextView txtTranDesc, txtTransAmount, txtTransGroupName, txtAvatar;
+    }
+
+    private void setAvatar(ImageView imageView, TextView textView, String amount, String name){
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        int sum = 0;
+        String amountValue = amount.trim();
+        for(int i=1; i< amount.length() + 1;i++){
+            if(!amountValue.substring(i-1, i).equals(".")) {
+                sum = sum + Integer.valueOf(amountValue.substring(i - 1, i));
+            }
+        }
+        int color = sum % amount.length();
+        Integer[] avatarBck =  { R.color.green, R.color.red, R.color.blue, R.color.purple, R.color.yellow};
+        gradientDrawable.setColor(avatarBck[color]);
+        imageView.setBackground(gradientDrawable);
+        textView.setText(name.substring(0,1).toUpperCase());
     }
 
 }
