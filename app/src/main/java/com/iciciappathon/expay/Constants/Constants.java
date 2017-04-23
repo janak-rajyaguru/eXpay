@@ -16,7 +16,7 @@ public class Constants {
 
     public static final String ACCESS_TOKEN = "access_token";
 
-    public static final String CUSTOMER_ID = "custid";
+    public static final String CUSTOMER_ID = "33336974";
 
-    public static final String ACCOUNT_NUMBER = "accountno";
+    public static final String ACCOUNT_NUMBER = "4444777755551973";
 }
