@@ -133,7 +133,7 @@ public class SattlementActivity extends AppCompatActivity {
                             settlementsList.remove(position);
                             settlementAdapter.notifyDataSetChanged();
                             alertDialog.dismiss();
-                            Toast.makeText(SattlementActivity.this, "You have settled amount " +settlement.getAmount()+ " ₹"+
+                            Toast.makeText(SattlementActivity.this,settlement.getDenewala().getName() + " has settled amount " +settlement.getAmount()+ " ₹"+
                                      " with "+settlement.getLenewala().getName() , Toast.LENGTH_SHORT).show();
                            /* Intent intent = new Intent(SattlementActivity.this, HomeActivity.class);
                             startActivity(intent);*/
