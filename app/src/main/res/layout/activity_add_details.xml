@@ -91,7 +91,7 @@
         android:id="@+id/btnAddExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add to Group"
+        android:text="Add Expense"
         style="@style/primatyButton"
         android:layout_gravity="end"
         android:layout_alignParentBottom="true"
